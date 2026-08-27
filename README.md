@@ -1,0 +1,1 @@
+# ai-news-card-prompt-tool
