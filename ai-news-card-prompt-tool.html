@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="將新聞稿整理成圖卡腳本，再套用視覺風格生成新聞稿圖卡的 AI Prompt 工具。">
+<title>AI 新聞稿圖卡｜Prompt 工具箱</title>
+<style>
+:root{color-scheme:light;--ink:#18211b;--muted:#68736b;--line:#dce5dd;--paper:#fffdf8;--surface:rgba(255,255,255,.84);--green:#13795b;--green-dark:#0d5b44;--green-soft:#e6f4ed;--amber:#f0b45a;--orange:#a65c16;--shadow:0 18px 50px rgba(34,55,42,.09)}
+*{box-sizing:border-box}body{min-height:100vh;margin:0;color:var(--ink);background:radial-gradient(circle at 8% 0%,rgba(240,180,90,.18),transparent 28rem),radial-gradient(circle at 100% 18%,rgba(19,121,91,.12),transparent 32rem),#f4f6f1;font-family:Inter,"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}button,textarea,select{font:inherit}.shell{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:64px 0 72px}.hero{position:relative;overflow:hidden;padding:clamp(28px,5vw,56px);color:#f9fff9;background:#173d31;border-radius:28px;box-shadow:var(--shadow)}.hero:after{position:absolute;right:-70px;bottom:-120px;width:330px;height:330px;border:58px solid rgba(255,255,255,.07);border-radius:50%;content:""}.eyebrow{margin:0 0 16px;color:#a9dec8;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1{max-width:700px;margin:0;font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(2.15rem,6vw,4.5rem);font-weight:600;letter-spacing:-.045em;line-height:1.05}.hero-copy{max-width:660px;margin:20px 0 0;color:#d6e5dc;font-size:1.05rem;line-height:1.8}
+.platform-panel{margin:26px 0 0;padding:24px;background:rgba(255,255,255,.84);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(34,55,42,.06)}.platform-head{display:flex;gap:14px;align-items:baseline;justify-content:space-between;margin-bottom:14px}.platform-head h2{margin:0;font-size:1.12rem}.platform-head p{margin:0;color:var(--muted);font-size:.82rem}.platform-control{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:14px;align-items:center}.platform-control select{width:100%;min-height:46px;padding:10px 38px 10px 13px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:11px;outline:none}.platform-control select:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(19,121,91,.08)}.platform-preview{padding:11px 14px;color:#4f5c53;background:#f3f7f3;border:1px solid #dce5dd;border-radius:11px;font-size:.86rem}.platform-preview strong{color:var(--ink)}.agency-panel{margin:26px 0 0;padding:24px;background:rgba(255,255,255,.84);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(34,55,42,.06)}.agency-head{display:flex;gap:14px;align-items:baseline;justify-content:space-between;margin-bottom:14px}.agency-head h2{margin:0;font-size:1.12rem}.agency-head p{margin:0;color:var(--muted);font-size:.82rem}.agency-control{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:14px;align-items:center}.agency-control select{width:100%;min-height:46px;padding:10px 38px 10px 13px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:11px;outline:none}.agency-control select:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(19,121,91,.08)}.agency-preview{padding:11px 14px;color:#4f5c53;background:#f3f7f3;border:1px solid #dce5dd;border-radius:11px;font-size:.86rem}.agency-preview strong{color:var(--ink)}
+.style-lab{margin:26px 0;padding:24px;background:rgba(255,253,248,.86);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(34,55,42,.06)}.style-lab-head{display:flex;gap:14px;align-items:baseline;justify-content:space-between;margin-bottom:18px}.style-lab-head h2{margin:0;font-size:1.12rem}.style-lab-head p{margin:0;color:var(--muted);font-size:.82rem}.style-presets{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-bottom:14px}.preset-button{padding:11px 12px;color:#5d4934;background:#fff8ed;border:1px solid #ead7bd;border-radius:11px;font-size:.82rem;font-weight:800;cursor:pointer}.preset-button:hover,.preset-button.active{color:white;background:var(--orange);border-color:var(--orange)}.style-columns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.style-column{position:relative;min-width:0;background:white;border:1px solid var(--line);border-radius:14px;overflow:visible}.style-column[open]{z-index:20}.style-column summary{padding:14px;color:var(--ink);background:#f6f9f5;font-size:.88rem;font-weight:800;cursor:pointer;list-style-position:inside}.style-dropdown{position:absolute;top:calc(100% + 7px);left:0;width:max(100%,330px);overflow:hidden;background:white;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 48px rgba(34,55,42,.18)}.style-column:last-child .style-dropdown{right:0;left:auto}.style-options{max-height:310px;overflow-y:auto;padding:8px}.style-option{display:grid;grid-template-columns:20px minmax(0,1fr);gap:8px;padding:9px 7px;border-radius:9px;cursor:pointer}.style-option:hover{background:var(--green-soft)}.style-option input{margin-top:3px;accent-color:var(--green)}.style-option strong{display:block;font-size:.8rem;line-height:1.4}.style-option small{display:block;margin-top:2px;color:var(--muted);font-size:.7rem;line-height:1.4}.style-selection-note{margin:15px 0 0;color:var(--muted);font-size:.8rem;line-height:1.6}.style-actions{display:flex;gap:10px;margin-top:14px}.button{display:inline-flex;min-height:44px;flex:1;align-items:center;justify-content:center;padding:10px 14px;border:0;border-radius:11px;font-weight:750;text-decoration:none;cursor:pointer;transition:background 150ms ease,transform 150ms ease}.button:active{transform:translateY(1px)}.apply-style{color:#fff;background:var(--orange)}.apply-style:hover{background:#84470f}.clear-style{max-width:180px;color:#6b3f1b;background:#f5e8d8}.clear-style:hover{background:#ead6bd}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:18px}.card{display:flex;min-width:0;min-height:570px;flex-direction:column;padding:25px;background:var(--surface);border:1px solid rgba(210,222,212,.9);border-radius:22px;box-shadow:var(--shadow);backdrop-filter:blur(12px);transition:transform 180ms ease,box-shadow 180ms ease}.card:hover{box-shadow:0 22px 55px rgba(34,55,42,.13);transform:translateY(-3px)}.card-top{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;margin-bottom:14px}.tag{display:inline-block;margin-bottom:10px;padding:5px 10px;color:var(--green-dark);background:var(--green-soft);border-radius:999px;font-size:.76rem;font-weight:800;letter-spacing:.04em}.card h2{margin:0;font-size:1.28rem;line-height:1.35}.number{color:#bcc7bf;font-family:Georgia,serif;font-size:2rem;line-height:1}.description{min-height:48px;margin:0 0 16px;color:var(--muted);font-size:.92rem;line-height:1.65}textarea{width:100%;min-height:320px;flex:1;padding:16px;color:#253129;background:var(--paper);border:1px solid var(--line);border-radius:13px;outline:none;resize:vertical;line-height:1.7}textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(19,121,91,.08)}.hint{margin:9px 2px 15px;color:#879188;font-size:.77rem}.actions{display:flex;gap:10px}.copy{color:var(--green-dark);background:var(--green-soft)}.copy:hover{background:#d8eee4}.edit{color:white;background:var(--green)}.edit:hover{background:var(--green-dark)}.copy.copied{color:#5b3b08;background:#ffe9c8}.floating-chatgpt{position:fixed;z-index:900;right:22px;bottom:22px;width:auto;min-width:170px;padding:14px 20px;color:white;background:var(--green);border:1px solid rgba(255,255,255,.28);border-radius:999px;box-shadow:0 14px 36px rgba(13,91,68,.32)}.floating-chatgpt:hover{background:var(--green-dark);transform:translateY(-2px)}footer{padding-top:42px;color:var(--muted);font-size:.83rem;text-align:center}
+.editor-overlay{position:fixed;z-index:1000;inset:0;display:none;padding:clamp(14px,3vw,36px);background:rgba(13,28,21,.72);backdrop-filter:blur(10px)}.editor-overlay.open{display:flex}.editor-page{display:flex;width:min(1100px,100%);height:100%;margin:auto;padding:clamp(20px,4vw,38px);flex-direction:column;background:#f8faf6;border-radius:22px;box-shadow:0 28px 80px rgba(0,0,0,.28)}.editor-head{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:18px}.editor-head h2{margin:0;font-size:clamp(1.2rem,3vw,1.8rem)}.editor-controls{display:flex;gap:10px}.editor-close{color:var(--ink);background:#e8ece7}.editor-save{color:white;background:var(--green)}#fullEditor{min-height:0;flex:1;padding:clamp(18px,3vw,30px);font-size:1rem;line-height:1.8}
+@media(max-width:760px){.shell{width:min(100% - 20px,680px);padding-top:10px}.platform-head{display:block}.platform-head p{margin-top:6px}.platform-control{grid-template-columns:1fr}.agency-head{display:block}.agency-head p{margin-top:6px}.agency-control{grid-template-columns:1fr}.hero{border-radius:0 0 24px 24px}.grid{grid-template-columns:1fr}.style-lab-head{display:block}.style-lab-head p{margin-top:6px}.style-columns{grid-template-columns:1fr}.style-presets{grid-template-columns:1fr 1fr}.style-actions{flex-direction:column}.clear-style{max-width:none}.style-dropdown{position:static;width:100%;margin-top:0;border:0;border-top:1px solid var(--line);border-radius:0 0 14px 14px;box-shadow:none}.card{min-height:0;padding:20px}.floating-chatgpt{right:14px;bottom:14px;min-width:0}.editor-page{border-radius:15px}.editor-head{align-items:flex-start;flex-direction:column}.editor-controls{width:100%}.editor-controls .button{flex:1}}
+
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.style-selection-note.warning{color:#9a4f0c;font-weight:800}
+.apply-style.pending{color:#4e2b08;background:#ffd79f;box-shadow:0 0 0 3px rgba(240,180,90,.2)}
+.settings-summary{margin-top:14px;padding:11px 14px;color:#4f5c53;background:#f3f7f3;border:1px solid var(--line);border-radius:11px;font-size:.82rem;line-height:1.55}
+.actions{flex-wrap:wrap}.actions .button{min-width:120px}.reset{color:#6b3f1b;background:#f5e8d8}.reset:hover{background:#ead6bd}
+.platform-launcher{position:fixed;z-index:900;right:22px;bottom:22px;display:flex;align-items:stretch;filter:drop-shadow(0 14px 18px rgba(13,91,68,.22));transition:transform 220ms ease}
+.platform-launcher.collapsed{transform:translateX(calc(100% - 42px))}
+.launcher-toggle{width:42px;padding:0;color:white;background:var(--green-dark);border:1px solid rgba(255,255,255,.28);border-right:0;border-radius:999px 0 0 999px;font-size:1.45rem;cursor:pointer}
+.platform-launcher.collapsed .launcher-toggle{transform:rotate(180deg)}
+.platform-launcher .floating-chatgpt{position:static;right:auto;bottom:auto;border-radius:0 999px 999px 0;box-shadow:none}
+.editor-help{margin:5px 0 0;color:var(--muted);font-size:.8rem}body.modal-open{overflow:hidden}
+@media(max-width:760px){.shell{padding-bottom:100px}.platform-launcher{right:14px;bottom:14px}}
+.style-columns{display:block}.style-group-title{margin:0 0 10px;color:var(--ink);font-size:.88rem}.style-options{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;max-height:none;overflow:visible;padding:0}.style-option{position:relative;display:block;min-height:126px;padding:14px 12px 12px 38px;background:#fff;border:1px solid var(--line);border-radius:12px;cursor:pointer;transition:border-color 150ms ease,background 150ms ease,box-shadow 150ms ease,transform 150ms ease}.style-option:hover{background:#f7fbf8;border-color:#a9c8b7;transform:translateY(-1px)}.style-option:has(input:checked){background:var(--green-soft);border-color:var(--green);box-shadow:0 0 0 2px rgba(19,121,91,.12)}.style-option input{position:absolute;top:14px;left:13px;width:17px;height:17px;margin:0;accent-color:var(--green)}.style-option strong{font-size:.82rem}.style-option small{margin-top:6px;font-size:.72rem;line-height:1.5}.style-option:focus-within{outline:3px solid rgba(19,121,91,.18);outline-offset:2px}
+@media(max-width:1000px){.style-options{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){.style-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.style-option{min-height:136px;padding:12px 10px 10px 34px}.style-option input{top:12px;left:10px}.style-option small{font-size:.68rem}}
+.preset-title{margin:0 0 10px;font-size:.9rem}.style-presets{grid-template-columns:repeat(6,minmax(0,1fr));margin-bottom:22px}.preset-button{min-height:82px;padding:12px;text-align:left}.preset-button strong,.preset-button small{display:block}.preset-button strong{font-size:.84rem}.preset-button small{margin-top:5px;font-size:.68rem;font-weight:500;line-height:1.4}.preset-button:hover,.preset-button.active{color:#fff;background:var(--green);border-color:var(--green)}.style-group+.style-group{margin-top:20px}.style-group-layout .style-options{grid-template-columns:repeat(4,minmax(0,1fr))}.style-group-tone .style-options{grid-template-columns:repeat(4,minmax(0,1fr))}.style-group .style-option{min-height:104px}.style-group .style-option:has(input:checked){background:var(--green-soft);border-color:var(--green)}
+@media(max-width:1000px){.style-presets{grid-template-columns:repeat(3,minmax(0,1fr))}.style-group-layout .style-options,.style-group-tone .style-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.style-presets{grid-template-columns:repeat(2,minmax(0,1fr))}.preset-button{min-height:88px}.style-group-layout .style-options,.style-group-tone .style-options{grid-template-columns:1fr}.style-group .style-option{min-height:82px}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="hero"><p class="eyebrow">AI NEWS CARD WORKFLOW</p><h1>AI 新聞稿圖卡</h1><p class="hero-copy">把一篇新聞稿，先整理成適合閱讀與分享的圖卡腳本，再套用一致的視覺風格，可依需求切換 ChatGPT 或 Google AI Mode 使用。</p></header>
+<section class="platform-panel" aria-labelledby="platformTitle"><div class="platform-head"><h2 id="platformTitle">選擇 AI 平台</h2><p>切換後會自動載入適合該平台的 Prompt 1 與 Prompt 2。</p></div><div class="platform-control"><label><span class="sr-only">AI 平台</span><select id="platformSelect"><option value="chatgpt">ChatGPT</option><option value="google" selected>Google AI Mode</option></select></label><div id="platformPreview" class="platform-preview">目前模式：<strong>Google AI Mode 精簡版 Prompt</strong></div></div></section><section class="agency-panel" aria-labelledby="agencyTitle"><div class="agency-head"><h2 id="agencyTitle">選擇製作單位</h2><p>選擇後會自動更新 Prompt 2 的底部署名。</p></div><div class="agency-control"><label><span class="sr-only">製作單位</span><select id="agencySelect"><option value="高雄關">高雄關</option><option value="關務署">關務署</option><option value="臺中關">臺中關</option><option value="臺北關">臺北關</option><option value="基隆關">基隆關</option></select></label><div id="agencyPreview" class="agency-preview">圖卡底部署名：<strong>財政部關務署高雄關 製作</strong></div></div></section><section class="style-lab" aria-labelledby="styleLabTitle"><div class="style-lab-head"><h2 id="styleLabTitle">設定圖卡呈現方式</h2><p>先選常見適用情況，系統會帶入建議版型與視覺語氣；仍可自行調整。</p></div><h3 class="preset-title">常見適用情況</h3><div id="stylePresets" class="style-presets" role="group" aria-label="常見適用情況"></div><div id="styleColumns" class="style-columns"></div><p id="styleSelectionNote" class="style-selection-note" aria-live="polite">選擇一種適用情況，或交由 AI 自動判斷。</p><div class="style-actions"><button id="applyStyle" class="button apply-style" type="button">套用圖卡設定至 Prompt 2</button><button id="clearStyles" class="button clear-style" type="button">恢復自動判斷</button></div><div id="settingsSummary" class="settings-summary" aria-live="polite"></div></section>
+<section class="grid" aria-label="Prompt 清單">
+<article class="card"><div class="card-top"><div><span class="tag">01｜新聞稿內容</span><h2 id="prompt1Title">把新聞稿轉成單張圖卡腳本</h2></div><span class="number">01</span></div><p class="description">先找出新聞稿最值得被看見的一句話，再選擇最適合的單張資訊結構與視覺重點。</p><textarea id="prompt1" aria-labelledby="prompt1Title" spellcheck="true"></textarea><p class="hint">可直接修改；內容會自動保存在這台裝置。</p><div class="actions"><button type="button" class="button copy" data-copy="prompt1">複製 Prompt 1</button><button type="button" class="button edit" data-edit="prompt1" data-title="編輯 Prompt 1">全頁編輯</button><button type="button" class="button reset" data-reset="prompt1">恢復預設</button></div></article>
+<article class="card"><div class="card-top"><div><span class="tag">02｜圖卡生成</span><h2 id="prompt2Title">依腳本生成單張新聞稿圖卡</h2></div><span class="number">02</span></div><p class="description">沿用 Prompt 1 的單張圖卡腳本，套用選定風格與一致的設計系統，生成可直接分享的新聞稿圖卡。</p><textarea id="prompt2" aria-labelledby="prompt2Title" spellcheck="true"></textarea><p class="hint">選好上方風格後，按「套用圖卡風格至 Prompt 2」。</p><div class="actions"><button type="button" class="button copy" data-copy="prompt2">複製 Prompt 2</button><button type="button" class="button edit" data-edit="prompt2" data-title="編輯 Prompt 2">全頁編輯</button><button type="button" class="button reset" data-reset="prompt2">恢復預設</button></div></article>
+</section>
+<footer>提示：Prompt 內容與風格設定會保存在目前瀏覽器的這台裝置。</footer>
+</main>
+<aside id="platformLauncher" class="platform-launcher"><button id="toggleLauncher" class="launcher-toggle" type="button" aria-expanded="true" aria-controls="openAIPlatform" aria-label="收合平台按鈕">›</button><button id="openAIPlatform" class="button floating-chatgpt" type="button">開啟 ChatGPT ↗</button></aside>
+<div id="liveStatus" class="sr-only" aria-live="polite"></div>
+<div id="editorOverlay" class="editor-overlay" role="dialog" aria-modal="true" aria-labelledby="editorTitle" aria-describedby="editorHelp"><section class="editor-page"><header class="editor-head"><div><h2 id="editorTitle">編輯 Prompt</h2><p id="editorHelp" class="editor-help">按 Escape 可取消；有未儲存內容時會先詢問。</p></div><div class="editor-controls"><button id="closeEditor" class="button editor-close" type="button">取消</button><button id="saveEditor" class="button editor-save" type="button">儲存修改</button></div></header><textarea id="fullEditor" aria-label="完整 Prompt 內容" spellcheck="true"></textarea></section></div>
+<script>
+const LEGACY_DEFAULT1=`你是一位擅長政府機關新聞稿轉譯、資訊設計與社群圖卡策劃的內容編輯。
+
+請閱讀我提供的新聞稿，將原本偏長、偏文字性的內容，重新整理成一張「單張新聞稿圖卡」的內容腳本。
+
+這個任務不是單純摘要新聞稿，也不是把新聞稿縮短後全部塞進圖卡，而是要先判斷：
+
+「這篇新聞稿最值得讓讀者記住的是什麼？」
+
+再依照新聞稿內容特性，找出最適合視覺化的資訊結構。
+
+【一、先理解這篇新聞稿】
+
+請先整理：
+
+1. 新聞稿主題
+2. 主要溝通對象
+3. 這篇新聞稿最重要的一句話核心訊息
+4. 希望讀者看完圖卡後：
+   • 知道什麼
+   • 理解什麼
+   • 採取什麼行動
+5. 新聞稿中最值得被視覺化的資訊
+   • 數字
+   • 日期
+   • 條件
+   • 差異
+   • 步驟
+   • 結果
+   • 風險
+   • 罰則
+   • 行動提醒
+
+如果新聞稿沒有某一類資訊，不需要勉強補齊。
+
+【二、判斷內容類型、圖卡適合度與呈現方式】
+
+先判斷這篇新聞稿是否適合製作成一張圖卡：
+• 適合：有一個明確核心訊息，可在 3～5 個區塊內說清楚
+• 需刪減後適合：資訊很多，但可保留一個主要認知
+• 不建議：徵才名單、冗長法規修正、多項無關內容或缺乏明確重點
+
+再從以下五種適用情況選擇一種：
+1. 業者通關與法規宣導
+2. 旅客申報與邊境防疫
+3. 服務公告與申請資訊
+4. 查緝與績效成果
+5. 機關活動與合作紀實
+
+接著從以下資訊版型選擇一種，不混用多種版型：
+• 重點卡片：3～5 個同等重要的資訊
+• 比較對照：正確／錯誤、可以／不可以或兩種條件差異
+• 步驟流程：申請、申報或行政程序
+• 重要提醒：一項重要規定、期限、禁止事項或行動
+• 數據成果：查緝數量、績效、統計或政策成果
+• 照片專題：活動、頒證、參訪或有真實照片的新聞紀實
+
+請同時建議一種視覺語氣：專業清晰、親和易懂、沉穩紀實或醒目提醒。
+
+【三、規劃這張單張圖卡】
+
+1. 主標題
+請重新設計一個適合放在圖卡上的主標題。
+原則：
+• 一眼就能理解
+• 優先從讀者角度說話
+• 有明確主張
+• 不一定照抄新聞稿原標題
+• 避免過長
+• 避免官樣、公文式語氣
+• 不要為了吸睛而誇大原文
+
+2. 副標或核心提醒
+用一句簡短文字補充主標題未說完的重點。
+如果不需要副標，請標示「無」。
+
+3. 主要資訊區塊
+整張圖卡以 3～5 個主要資訊區塊為原則。
+每個區塊請整理：
+• 區塊名稱
+• 這一區唯一要傳達的核心訊息
+• 必要文字
+• 適合搭配的視覺元素
+• 適合放大的數字或關鍵字
+
+不要按照新聞稿段落順序機械式拆分，請重新組織資訊，讓讀者依照理解順序閱讀。
+
+【四、決定視覺焦點】
+
+請判斷這張圖卡最適合以什麼作為主要視覺，例如：
+• 海關人員
+• 民眾或業者
+• 貨物／商品
+• 模具或機器
+• 文件／報單
+• 貨櫃／船舶／飛機
+• 港口／機場
+• 大數字
+• 流程
+• 左右對照物件
+• 查緝情境
+• 法規或處罰意象
+
+請說明：
+主視覺：＿＿＿＿
+視覺用途：＿＿＿＿
+
+視覺元素必須幫助理解內容，不只是裝飾。
+
+【五、建議資訊版型】
+
+請選擇最適合這篇新聞稿的版型，例如：
+• 左右比較對照
+• 上下分區
+• 四欄重點
+• 三欄資訊卡
+• 中央主視覺＋周圍資訊
+• 流程箭頭
+• 條件分流
+• 大數字成果式
+• 情境人物＋資訊卡
+• 其他更適合的方式
+
+請簡單描述畫面配置。
+
+【六、文字取捨】
+
+請把新聞稿內容分成兩類：
+
+【圖卡一定要保留】
+只保留真正會影響理解、判斷或行動的資訊。
+
+【建議不要放進圖卡】
+例如：
+• 過長背景說明
+• 完整法規原文
+• 重複敘述
+• 過細行政程序
+• 與核心訊息關聯較低的資訊
+• 新聞稿中為了完整性而存在，但不適合放在圖卡上的文字
+
+如果某項法規、電話、日期或網址會直接影響讀者行動，則仍應保留。
+
+【七、最後輸出「圖卡製作腳本」】
+
+請整理成以下格式：
+
+圖卡定位
+• 圖卡適合度：
+• 判斷理由：
+• 適用情況：
+• 新聞稿主題：
+• 主要對象：
+• 一句話核心訊息：
+• 讀者應採取的行動：
+• 讀者看完後最應記住：
+
+圖卡文字
+• 主標題：
+• 副標：
+• 區塊 1：
+• 區塊 2：
+• 區塊 3：
+• 區塊 4：
+• 區塊 5：
+
+若不需要 5 個區塊，不要為了湊數增加內容。
+
+視覺規劃
+• 主視覺：
+• 資訊版型：
+• 視覺語氣：
+• 建議放大的數字／關鍵字：
+• 建議搭配的插畫／Icon／情境：
+• 是否需要真實照片：
+• 圖像素材策略：
+• 不應生成或杜撰的畫面：
+
+內容取捨
+• 一定要保留：
+• 建議省略：
+• 需要人工確認：
+
+【重要原則】
+
+• 完全以新聞稿內容為依據，不自行補造資料
+• 法規、數字、日期、金額、稅率、罰則、專有名詞必須精確
+• 資訊不足時請明確指出，不要自行推測
+• 不需要把新聞稿所有內容都放進圖卡
+• 優先把文字轉換成「對照、流程、分類、數字、條件、結果、情境」
+• 一張圖卡只建立一個主要認知
+• 圖卡的目的不是取代新聞稿，而是讓讀者在短時間內掌握新聞稿最重要的內容
+• 使用繁體中文及臺灣用語
+• 新聞聯絡人、採訪窗口及其電話、分機、電子郵件應省略；但申請、申報、連假通關或民眾洽詢所需的官方服務電話、期限、網址與承辦單位應保留
+• 民國日期保持原格式，不自行換算；「可、應、不得、免、須」不得互相替換
+
+新聞稿內容：
+
+【新聞稿標題】
+【請貼上新聞稿標題】
+
+【新聞稿內文】
+【請貼上新聞稿內文】`;
+const DEFAULT2=`請完全依照 Prompt 1 已經確認的適用情況、核心訊息、讀者行動、主標題、副標、資訊區塊、必要文字、主視覺、資訊版型、視覺語氣與圖像素材策略，生成一張完整的「單張新聞稿圖卡」。
+
+這個階段不要重新摘要新聞稿，也不要重新規劃資訊架構。
+
+如果 Prompt 1 已經做出明確判斷，請直接按照該腳本執行；只有在實際版面出現明顯衝突時，才可以微調文字長度或元素位置，但不得改變原本的核心訊息與重要事實。
+
+【指令優先順序】
+1. 新聞稿中的客觀事實
+2. Prompt 1 已確認的內容腳本
+3. 使用者選擇的適用情況、資訊版型與視覺語氣
+4. 一般設計建議
+
+任何風格或版面指令都不得覆蓋新聞稿事實。若必要數字、條件或照片資訊不足，應省略或標示需要確認，不得自行補造。
+
+【一、圖卡目的】
+
+這是一張要實際發布於政府機關 Facebook、官網或其他社群平台的正式新聞稿圖卡。
+
+圖卡的目的不是完整取代新聞稿，而是讓讀者在數秒內：
+1. 看懂主題
+2. 抓到最重要的訊息
+3. 理解必要的條件、差異、流程、成果或風險
+4. 知道下一步應該怎麼做
+
+請優先使用視覺方式傳達資訊，而不是大量文字。
+
+【二、輸出形式】
+
+本次請生成：單張新聞稿圖卡。
+
+不要生成多張輪播。
+整張圖片只能包含一張完整圖卡，不得產生縮圖總覽或多張圖卡拼貼。
+
+圖卡尺寸固定為寬螢幕 16:9 橫式比例。不得改成直式、正方形或其他比例。
+
+【三、目前指定的圖卡風格】
+
+請套用以下已選擇的視覺風格：
+
+【填入希望的圖卡風格】
+
+請將這些風格視為同一套視覺系統整合使用，不要把每一個風格拆成彼此衝突的元素。
+
+如果沒有填入任何風格設定，預設採用「政府宣導插畫資訊圖」。
+
+整體氣質應為：
+• 專業
+• 清楚
+• 可信
+• 親民
+• 有政府機關正式感
+• 但避免傳統公文式僵硬版面
+
+【四、視覺語言】
+
+優先使用簡潔插畫、Icon、大數字、對照、流程、資訊卡、人物或實際情境，以及與內容相關的元素。圖像必須幫助理解，不只是裝飾。
+
+不要加入與新聞稿無關、只有裝飾用途的隨機人物、建築、圖案或物件。
+
+【真實照片與素材規則】
+• 若使用者已提供活動、查緝或頒證照片，應優先使用原始照片，不得改變人物身分、制服、物品數量或現場事實
+• 若未提供真實照片，不得生成看似真實的查緝現場、官員、業者、受獎人或活動合照
+• 沒有真實照片時，改用簡潔插畫、Icon、物品輪廓、貨櫃或數據圖解
+• 插畫、照片、Icon 擇一作為主要圖像語言，不要混用成雜亂拼貼
+
+【五、資訊層級】
+
+請建立明確閱讀順序：
+第一層：主標題
+
+第二層：核心提醒／副標
+第三層：3～5 個主要資訊區塊
+第四層：必要補充資訊
+第五層：底部官方署名
+
+主標題必須是整張圖卡最醒目的文字，不要被插畫或背景干擾。
+
+【六、依資訊版型安排畫面】
+
+請遵循 Prompt 1 與工具中選定的單一資訊版型：
+• 重點卡片：使用 3～5 個規則一致的資訊卡
+• 比較對照：以兩區呈現正確／錯誤、可以／不可以或條件差異
+• 步驟流程：使用 Step 1 → Step 2 → Step 3；有分流時先呈現共同條件
+• 重要提醒：集中凸顯一項規定、期限、禁止事項或讀者行動
+• 數據成果：以一個主要大數字搭配 2～4 項成果摘要
+• 照片專題：以一張真實主照片搭配活動目的、參與者與成果重點
+
+不同適用情況的內容重點：
+• 業者通關與法規：適用對象、條件、正確作法、注意事項與後果
+• 旅客申報與邊境防疫：可否攜帶、是否申報、正確行動及違規後果
+• 服務公告與申請：日期、期限、服務時間、官方服務電話與辦理步驟
+• 查緝與績效成果：查獲品項、數量、市價、合作機關與代表照片
+• 機關活動與合作紀實：一張主照片、活動目的、參與者、成果與後續效益
+
+【七、文字控制】
+
+• 主標題短而明確
+• 一個資訊區塊盡量只使用一句主句
+• 補充文字只保留必要內容
+• 不要直接貼入長段新聞稿
+• 不要使用過小文字硬塞內容
+
+如果內容放不下，處理順序為：
+1. 刪除重複內容
+2. 精簡次要說明
+3. 改成圖示或視覺表示
+4. 調整資訊區塊
+5. 最後才考慮縮小字級
+
+不得為了塞完所有內容而犧牲閱讀性。
+
+文字量原則：
+• 主標題以 14～24 個中文字為原則，最多兩行
+• 每個資訊區塊以 15～35 個中文字為原則
+• 一般資訊圖卡總文字量以約 120～180 個中文字為原則
+• 照片專題總文字量以約 60～100 個中文字為原則
+• 不自行添加新聞稿與 Prompt 1 未確認的口號
+
+【八、文字正確性】
+
+所有文字使用繁體中文、臺灣用語。
+
+特別注意稅則號別、法規名稱、條文、日期、年度、數字、稅率、金額、重量、數量與專有名詞，必須與 Prompt 1 完全一致。
+
+新聞聯絡人、採訪窗口及其電話、分機、電子郵件不得放入圖卡；但讀者辦理申請、申報、連假通關或洽詢所必須使用的官方服務電話、期限、網址與承辦單位應保留。
+
+不得自行改寫成意思不同的內容，不得產生亂碼、假文字、不存在的中文字或無意義裝飾文字。
+
+【九、色彩使用】
+
+色彩必須具有資訊功能：
+• 藍色：官方、制度、一般資訊、流程、中性內容
+• 綠色：正確、合格、可以、通過、改善、正向行動
+• 橘色：期限、注意事項與需要採取的行動
+• 紅色：僅限原文明確指出的禁止、違規、處罰或重大風險
+• 淺米色／淺灰／淺藍：資訊卡底色、分區背景、輔助閱讀
+
+同一張圖卡不要使用過多主色。
+
+【十、圖像原則】
+
+根據新聞內容選擇真正相關的圖像，例如：
+• 稅則／申報：貨物、模具、機器、文件、報單、勾叉比較
+• 違規／查緝：海關人員、查驗、禁止符號、查扣貨物、法槌、警示
+• 流程／申請：文件、表單、箭頭、關卡、Step、機關
+• 成果：大數字、貨物 Icon、港口、貨櫃、查緝情境
+• 民眾宣導：民眾、購物情境、手機、行李、包裹、警示 Icon
+
+如果圖卡內容涉及動植物檢疫，且需要出現「檢疫犬」，請使用「米格魯」形象。
+如果圖卡內容涉及毒品查緝，且需要出現「緝毒犬」，請使用「拉布拉多」形象。
+不要把檢疫犬畫成拉布拉多，也不要把緝毒犬畫成米格魯。
+
+【十一、官方製作單位】
+
+【已套用的製作單位】
+• 製作單位：高雄關
+• 圖卡底部固定署名：「關務署徽章圖示＋財政部關務署高雄關 製作」
+【/已套用的製作單位】
+
+署名規則如下：
+• 高雄關：財政部關務署高雄關 製作
+• 臺中關：財政部關務署臺中關 製作
+• 臺北關：財政部關務署臺北關 製作
+• 基隆關：財政部關務署基隆關 製作
+• 關務署：財政部關務署
+
+選擇「關務署」時，不加「製作」、不加任何關區名稱，「財政部關務署」後方保持留白。
+
+【十二、官方徽章】
+
+官方署名區左側應搭配「關務署徽章圖示」。
+
+官方 Logo 來源：
+https://web.customs.gov.tw/kaohsiung/headerImg?type=logo&path=4dd716da4ada4551b8a425f2ea54bc8a
+
+該圖片包含前方徽章圖示＋後方文字，本圖卡只使用最前方的關務署徽章圖示，不使用 Logo 原圖後方既有文字。
+
+正確做法：
+徽章圖示 ｜ 財政部關務署○○關 製作
+或選擇關務署時：
+徽章圖示 ｜ 財政部關務署
+
+徽章與文字請形成一組乾淨、低調、正式的底部署名。
+
+【十三、徽章使用限制】
+
+徽章不得：
+• 重新設計
+• 自行仿製
+• 改變比例
+• 拉伸或變形
+• 修改圖案
+• 加入不屬於原徽章的文字
+• 生成近似但不正確的 Logo
+
+如果圖片生成工具無法從網址直接取得或裁切徽章，請不要自行生成替代 Logo，請明確告知：「需要上傳關務署徽章圖示檔案後才能正確放置官方 Logo。」
+
+【十四、底部其他資訊】
+
+若 Prompt 1 判斷官網、QR Code 或申請網址與讀者下一步行動直接相關，可視版面空間放在底部品牌區上方。
+
+新聞聯絡與採訪資訊一律不要放入圖卡；直接影響讀者下一步行動的官方服務資訊則應保留。
+
+官方署名與 Logo 必須固定保留。
+
+【十五、生成前自我檢查】
+
+內容：
+• 是否完全依照 Prompt 1？
+• 是否只有一個核心主題？
+• 是否保留必要數字、日期與條件？
+• 是否沒有自行補造資訊？
+
+文字：
+• 是否全部為繁體中文？
+• 是否沒有錯字、亂碼或假文字？
+• 主標是否清楚？
+• 是否沒有過多長段文字？
+• 是否已排除新聞聯絡與採訪資訊，同時保留必要的官方服務資訊？
+
+視覺：
+• 是否能一眼辨識資訊層級？
+• 圖像是否有助理解？
+• 版型是否符合適用情況與所選資訊版型？
+• 色彩是否具有資訊功能？
+
+官方署名：
+• 是否使用正確製作單位？
+• 若選擇關務署，是否只顯示「財政部關務署」？
+• 是否保留底部官方署名區？
+• 是否只使用原 Logo 前方徽章？
+• 是否沒有自行仿製 Logo？
+
+若任一項不符合，請先修正後再生成。
+
+請直接生成一張完整的單張新聞稿圖卡。`;
+
+
+const GOOGLE_LEGACY_DEFAULT1=`請閱讀我提供的新聞稿，將內容規劃成一張「單張新聞稿圖卡」。
+
+這不是單純摘要新聞稿，而是先判斷：「這篇新聞稿最值得讓讀者記住的是什麼？」
+
+請依序完成：
+
+1. 一句話核心訊息
+用一句話說明讀者看完圖卡後最應該記住的重點。
+
+2. 主要溝通對象
+判斷主要是給誰看的，例如民眾、進出口業者、旅客或一般大眾。
+
+3. 判斷圖卡適合度、適用情況與資訊版型
+先判斷：適合／需刪減後適合／不建議製作，並簡述理由。
+
+適用情況擇一：
+• 業者通關與法規宣導
+• 旅客申報與邊境防疫
+• 服務公告與申請資訊
+• 查緝與績效成果
+• 機關活動與合作紀實
+
+資訊版型擇一：
+• 重點卡片
+• 比較對照
+• 步驟流程
+• 重要提醒
+• 數據成果
+• 照片專題
+
+並建議一種視覺語氣：專業清晰、親和易懂、沉穩紀實或醒目提醒。
+
+4. 規劃圖卡主標題
+主標題要簡短、直接、一般讀者一看就懂，不一定照抄新聞稿標題。
+
+5. 規劃 3～5 個資訊區塊
+每個區塊只整理：
+• 區塊名稱
+• 一句核心訊息
+• 必要數字／日期／條件
+• 建議搭配的圖片、人物、Icon 或情境
+
+6. 建議版型
+例如：左右對照、四欄重點、流程箭頭、中央主視覺＋周圍資訊、大數字成果式、情境人物＋資訊卡。
+
+7. 內容取捨
+分成：
+• 圖卡一定要保留
+• 建議不要放進圖卡
+
+重要原則：
+• 完全依照新聞稿內容，不自行補造資料
+• 數字、日期、稅率、罰則、法規名稱與專有名詞必須精確
+• 不要照新聞稿段落順序機械式摘要
+• 優先把內容轉成「對照、流程、數字、分類、條件、結果、情境」
+• 一張圖卡只傳達一個主要認知
+• 使用繁體中文與臺灣用語
+• 新聞聯絡人、採訪窗口及其電話、分機、電子郵件應省略；但申請、申報、連假通關或民眾洽詢需要使用的官方服務電話、期限、網址與承辦單位應保留
+• 民國日期保持原格式；「可、應、不得、免、須」不得互相替換
+
+最後請用以下格式輸出：
+
+圖卡適合度：
+判斷理由：
+適用情況：
+核心訊息：
+主要對象：
+讀者應採取的行動：
+資訊版型：
+視覺語氣：
+主標題：
+
+資訊區塊 1：
+資訊區塊 2：
+資訊區塊 3：
+資訊區塊 4：
+資訊區塊 5：
+
+建議版型：
+主視覺：
+是否需要真實照片：
+圖像素材策略：
+不應生成或杜撰的畫面：
+一定要保留：
+建議省略：
+需要人工確認：
+
+新聞稿內容：
+
+【新聞稿標題】
+【請貼上新聞稿標題】
+
+【新聞稿內文】
+【請貼上新聞稿內文】`;
+
+const DEFAULT1=`請閱讀以下新聞稿，整理成一張 16:9 橫式知識圖卡的內容腳本。
+
+請先判斷新聞稿是否適合製成單張圖卡。若適合，請依原文輸出：
+
+1. 適用情況：從法規通關、旅客防疫、申請服務、查緝成果、活動紀實中選擇一項
+2. 核心訊息：用一句話說明讀者最需要知道的事
+3. 主標題：14～24 個中文字，清楚直接，避免誇張或恐嚇語氣
+4. 資訊重點：整理成 3～5 個簡短區塊，每區塊只表達一個重點
+5. 讀者行動：說明讀者看完後應知道、準備或辦理什麼
+6. 呈現建議：選擇重點卡片、比較對照、步驟流程、重要提醒、數據成果或照片專題，並提出一項主視覺建議
+
+規則：
+• 僅使用新聞稿中可確認的事實，不推測或補造內容
+• 日期、數字、金額、法規、罰則及專有名詞必須精確
+• 排除新聞聯絡人、採訪窗口及其電話、分機與電子郵件
+• 民眾辦理業務所需的期限、網址及官方服務電話應保留
+• 使用繁體中文，避免公文式長句及大段文字
+
+【請在下方貼上新聞稿內容】
+
+`;
+
+const GOOGLE_DEFAULT1=DEFAULT1;
+
+const GOOGLE_DEFAULT2=`請使用「Nano BANANA 2 生成圖片」功能，依照 Prompt 1 已確認的圖卡腳本，直接生成一張 16:9 橫式新聞稿圖卡。
+
+【圖卡設定】
+【填入希望的圖卡風格】
+
+【內容與排版】
+• 只做一張圖卡，不做多張輪播、縮圖總覽或文字說明
+• 使用繁體中文；主標題最醒目，搭配 3～5 個簡短資訊區塊
+• 以 Prompt 1 的主標題、核心訊息、必要數字、日期、條件及讀者行動為準，不新增事實或口號
+• 優先用簡潔插畫、圖示、大數字、對照或流程幫助理解，保持清楚層級與充足留白
+• 數字、日期、稅率、法規名稱、罰則及專有名詞必須精確
+• 排除新聞聯絡人、採訪窗口及其電話、分機、電子郵件；民眾辦理業務必要的官方電話、期限與網址則保留
+• 紅色只用於原文明確提到的禁止、違規、處罰或重大風險；一般提醒使用橘色或深藍色
+
+【素材限制】
+• 有上傳真實照片時優先使用，不改變人物、制服、物品數量或現場事實
+• 沒有照片時改用插畫或圖示，不虛構寫實的查緝、官員、頒證或活動現場
+• 動植物檢疫犬使用米格魯形象；緝毒犬使用拉布拉多形象
+
+【官方署名】
+【已套用的製作單位】
+• 製作單位：高雄關
+• 圖卡底部固定署名：「關務署徽章圖示＋財政部關務署高雄關 製作」
+【/已套用的製作單位】
+
+若已上傳關務署徽章，將原圖放在署名左側，不要重畫、變形或改色；若未上傳，僅保留署名文字，不生成替代 Logo。
+
+現在直接建立圖片。`;
+
+const groups=[
+{key:'layout',title:'資訊版型',options:[
+['L00','AI 自動選擇','依新聞稿內容判斷最清楚的資訊結構'],
+['L01','重點卡片','以 3～5 個資訊卡整理主要重點'],
+['L02','比較對照','呈現正確／錯誤、可以／不可以或差異'],
+['L03','步驟流程','以清楚順序呈現申請、申報或辦理程序'],
+['L04','重要提醒','集中凸顯一項重要規定、期限或注意事項'],
+['L05','數據成果','以大數字與成果分類呈現績效或查緝成果'],
+['L06','照片專題','以一張代表照片搭配精簡新聞重點']
+]},
+{key:'tone',title:'視覺語氣',options:[
+['V01','專業清晰','乾淨、可信、資訊層級明確，適用多數官方內容'],
+['V02','親和易懂','以生活化語言、柔和配色及簡潔圖解降低理解門檻'],
+['V03','沉穩紀實','重視真實照片與新聞可信度，不使用煽情效果'],
+['V04','醒目提醒','提高重要資訊對比，但避免恐嚇式標題與過量紅色']
+]}
+];
+const presets=[
+{id:'auto',name:'AI 自動判斷',desc:'不確定時使用',content:'由 AI 依新聞稿內容判斷最適合的類型',layout:'L00',tone:'V01'},
+{id:'business',name:'法規通關',desc:'規定、稅則、申報與業者提醒',content:'業者通關與法規宣導',layout:'L01',tone:'V01'},
+{id:'traveler',name:'旅客防疫',desc:'攜帶物品、入出境申報與防疫',content:'旅客申報與邊境防疫',layout:'L02',tone:'V02'},
+{id:'service',name:'申請服務',desc:'申請步驟、服務時間與聯絡資訊',content:'服務公告與申請資訊',layout:'L03',tone:'V01'},
+{id:'enforcement',name:'查緝成果',desc:'案件查獲、統計數字與執法成果',content:'查緝與績效成果',layout:'L05',tone:'V03'},
+{id:'event',name:'活動紀實',desc:'座談、頒證、參訪、獲獎與合作',content:'機關活動與合作紀實',layout:'L06',tone:'V03'}
+];
+
+const prefix='ai-news-card-tool:v9:';
+const legacyPrefix='ai-news-card-tool:v8:';
+const p1=document.querySelector('#prompt1'),p2=document.querySelector('#prompt2');
+const platformSelect=document.querySelector('#platformSelect'),platformPreview=document.querySelector('#platformPreview'),openAIPlatform=document.querySelector('#openAIPlatform');
+const liveStatus=document.querySelector('#liveStatus'),settingsSummary=document.querySelector('#settingsSummary');
+const applyStyleButton=document.querySelector('#applyStyle');
+let stylesPending=false;
+let currentPreset='auto';
+function announce(message){liveStatus.textContent='';requestAnimationFrame(()=>{liveStatus.textContent=message})}
+function store(key,value){try{localStorage.setItem(key,value);return true}catch(error){announce('無法儲存至瀏覽器，請確認瀏覽器儲存空間或隱私設定。');return false}}
+function setPreview(container,prefixText,strongText){container.replaceChildren(document.createTextNode(prefixText));const strong=document.createElement('strong');strong.textContent=strongText;container.appendChild(strong)}
+const platformMap={
+  chatgpt:{label:'ChatGPT 完整版 Prompt',openLabel:'開啟 ChatGPT ↗',url:'https://chatgpt.com/',defaults:[DEFAULT1,DEFAULT2]},
+  google:{label:'Google AI Mode 精簡版 Prompt',openLabel:'開啟 Google AI Mode ↗',url:'https://www.google.com/ai',defaults:[GOOGLE_DEFAULT1,GOOGLE_DEFAULT2]}
+};
+const prompt1Revision='2026-08-25-compact-2';
+const googlePrompt2Revision='2026-08-25-compact-2';
+let currentPlatform=localStorage.getItem(prefix+'platform')||'google';
+if(!platformMap[currentPlatform]) currentPlatform='google';
+function promptKey(id,platform=currentPlatform){return prefix+platform+':'+id}
+function savedPrompt(id,platform=currentPlatform){
+  return localStorage.getItem(promptKey(id,platform));
+}
+function saveCurrentPrompts(){
+  store(promptKey('prompt1'),p1.value);
+  store(promptKey('prompt2'),p2.value);
+}
+function loadPlatformPrompts(platform){
+  const cfg=platformMap[platform];
+  const prompt1RevisionKey=prefix+platform+':prompt1-revision';
+  if(localStorage.getItem(prompt1RevisionKey)!==prompt1Revision){
+    p1.value=cfg.defaults[0];
+    store(promptKey('prompt1',platform),p1.value);
+    store(prompt1RevisionKey,prompt1Revision);
+  }else{
+    p1.value=savedPrompt('prompt1',platform)||cfg.defaults[0];
+  }
+  if(platform==='google'&&localStorage.getItem(prefix+'google-prompt2-revision')!==googlePrompt2Revision){
+    p2.value=cfg.defaults[1];
+    store(promptKey('prompt2',platform),p2.value);
+    store(prefix+'google-prompt2-revision',googlePrompt2Revision);
+  }else{
+    p2.value=savedPrompt('prompt2',platform)||cfg.defaults[1];
+  }
+}
+function updatePlatformUI(){
+  const cfg=platformMap[currentPlatform];
+  platformSelect.value=currentPlatform;
+  setPreview(platformPreview,'目前模式：',cfg.label);
+  openAIPlatform.textContent=cfg.openLabel;
+  document.querySelector('.hero-copy').textContent=currentPlatform==='google'
+    ?'目前使用 Google AI Mode 精簡版 Prompt：執行 Prompt 2 前，請先在 AI Mode 選擇「圖片」→「建立圖片」。'
+    :'把一篇新聞稿先整理成圖卡腳本，再套用視覺風格生成單張圖卡；也可切換 Google AI Mode 精簡版。';
+}
+const agencySelect=document.querySelector('#agencySelect'),agencyPreview=document.querySelector('#agencyPreview');
+const agencyMap={
+  '高雄關':{label:'財政部關務署高雄關 製作',prompt:'• 製作單位：高雄關\n• 圖卡底部固定署名：「關務署徽章圖示＋財政部關務署高雄關 製作」'},
+  '關務署':{label:'財政部關務署',prompt:'• 製作單位：關務署\n• 圖卡底部固定署名：「關務署徽章圖示＋財政部關務署」\n• 「財政部關務署」後方必須留白，不加「製作」、關區名稱或其他文字'},
+  '臺中關':{label:'財政部關務署臺中關 製作',prompt:'• 製作單位：臺中關\n• 圖卡底部固定署名：「關務署徽章圖示＋財政部關務署臺中關 製作」'},
+  '臺北關':{label:'財政部關務署臺北關 製作',prompt:'• 製作單位：臺北關\n• 圖卡底部固定署名：「關務署徽章圖示＋財政部關務署臺北關 製作」'},
+  '基隆關':{label:'財政部關務署基隆關 製作',prompt:'• 製作單位：基隆關\n• 圖卡底部固定署名：「關務署徽章圖示＋財政部關務署基隆關 製作」'}
+};
+function applyAgency(save=true){
+  const key=agencySelect.value||'高雄關',cfg=agencyMap[key]||agencyMap['高雄關'];
+  setPreview(agencyPreview,'圖卡底部署名：',cfg.label);
+  let txt=p2.value;
+  const re=/【已套用的製作單位】[\s\S]*?【\/已套用的製作單位】/;
+  const wrapped='【已套用的製作單位】\n'+cfg.prompt+'\n【/已套用的製作單位】';
+  if(re.test(txt)) txt=txt.replace(re,wrapped); else txt+='\n\n'+wrapped;
+  p2.value=txt;
+  if(save){store(prefix+'agency',key);store(promptKey('prompt2'),txt)}
+  updateSummary();
+}
+platformSelect.value=currentPlatform;
+loadPlatformPrompts(currentPlatform);
+agencySelect.value=localStorage.getItem(prefix+'agency')||localStorage.getItem(legacyPrefix+'agency')||'高雄關';
+applyAgency(false);
+updatePlatformUI();
+store(promptKey('prompt2'),p2.value);
+platformSelect.addEventListener('change',()=>{
+  saveCurrentPrompts();
+  currentPlatform=platformSelect.value;
+  store(prefix+'platform',currentPlatform);
+  loadPlatformPrompts(currentPlatform);
+  applyAgency(false);
+  updatePlatformUI();
+  store(promptKey('prompt1'),p1.value);
+  store(promptKey('prompt2'),p2.value);
+  updateSummary();
+});
+agencySelect.addEventListener('change',()=>applyAgency(true));
+[p1,p2].forEach(el=>el.addEventListener('input',()=>store(promptKey(el.id),el.value)));
+const styleColumns=document.querySelector('#styleColumns'),stylePresets=document.querySelector('#stylePresets'),note=document.querySelector('#styleSelectionNote');
+function selected(){const out={};groups.forEach(g=>out[g.key]=document.querySelector(`input[data-group="${g.key}"]:checked`)?.value||g.options[0][0]);return out}
+function labelFor(code){for(const g of groups){const x=g.options.find(o=>o[0]===code);if(x)return x[1]}return code}
+function markStylesPending(pending=true){stylesPending=pending;applyStyleButton.classList.toggle('pending',pending);updateSummary()}
+function renderGroups(){styleColumns.replaceChildren();groups.forEach(g=>{const section=document.createElement('section');section.className=`style-group style-group-${g.key}`;const heading=document.createElement('h3');heading.className='style-group-title';heading.textContent=g.title;const opts=document.createElement('div');opts.className='style-options';opts.setAttribute('role','radiogroup');opts.setAttribute('aria-label',g.title);g.options.forEach(([code,name,desc],index)=>{const lab=document.createElement('label');lab.className='style-option';const input=document.createElement('input');input.type='radio';input.name=`presentation-${g.key}`;input.dataset.group=g.key;input.value=code;if(index===0)input.checked=true;const span=document.createElement('span');const strong=document.createElement('strong');strong.textContent=name;const small=document.createElement('small');small.textContent=desc;span.append(strong,small);lab.append(input,span);opts.appendChild(lab)});section.append(heading,opts);styleColumns.appendChild(section)});document.querySelectorAll('input[data-group]').forEach(x=>x.addEventListener('change',()=>{saveStyles();updateNote();markStylesPending()}));loadStyles();updateNote()}
+function renderPresets(){stylePresets.replaceChildren();presets.forEach(p=>{const b=document.createElement('button');b.type='button';b.className='preset-button';b.dataset.id=p.id;const strong=document.createElement('strong');strong.textContent=p.name;const small=document.createElement('small');small.textContent=p.desc;b.append(strong,small);b.onclick=()=>applyPreset(p);stylePresets.appendChild(b)})}
+function applyPreset(p,{pending=true}={}){currentPreset=p.id;document.querySelector(`input[data-group="layout"][value="${p.layout}"]`).checked=true;document.querySelector(`input[data-group="tone"][value="${p.tone}"]`).checked=true;document.querySelectorAll('.preset-button').forEach(b=>b.classList.toggle('active',b.dataset.id===p.id));saveStyles();updateNote();markStylesPending(pending)}
+function saveStyles(){store(prefix+'presentation',JSON.stringify({...selected(),preset:currentPreset}))}
+function loadStyles(){let saved={};try{saved=JSON.parse(localStorage.getItem(prefix+'presentation')||'{}')}catch(e){announce('已忽略無法讀取的舊版圖卡設定。')}const preset=presets.find(p=>p.id===saved.preset)||presets[0];applyPreset(preset,{pending:false});for(const key of ['layout','tone']){const value=saved[key];const el=value&&document.querySelector(`input[data-group="${key}"][value="${value}"]`);if(el)el.checked=true}updateSummary()}
+function activePreset(){return presets.find(p=>p.id===currentPreset)||presets[0]}
+function updateNote(){const p=activePreset(),s=selected();note.classList.remove('warning');note.textContent=`適用情況：${p.content}｜建議版型：${labelFor(s.layout)}｜視覺語氣：${labelFor(s.tone)}`}
+function updateSummary(){if(!settingsSummary)return;const p=activePreset(),s=selected();settingsSummary.textContent=`${platformMap[currentPlatform].label}｜${agencyMap[agencySelect.value]?.label||agencySelect.value}｜${p.name}｜${labelFor(s.layout)}｜${labelFor(s.tone)}${stylesPending?'｜尚未套用至 Prompt 2':''}`}
+function styleText(){const p=activePreset(),s=selected();return `• 適用情況：${p.content}\n• 資訊版型：${labelFor(s.layout)}\n• 視覺語氣：${labelFor(s.tone)}\n• 共通原則：一張圖卡只傳達一個核心訊息，使用一致配色與圖像語言，保持充足留白與清楚層級。\n• 提醒強度：只有原文含明確禁止、違規、處罰或重大風險時才使用紅色警示；一般注意事項使用橘色、深綠或深藍，避免製造不必要的恐慌。`}
+function applyStyle(save=true,flash=true){
+  const block=styleText();
+  let txt=p2.value;
+  const wrapped=`【已套用的圖卡風格】
+${block}
+【/已套用的圖卡風格】`;
+  const existing=/【已套用的圖卡風格】[\s\S]*?【\/已套用的圖卡風格】/;
+  const markers=['【圖卡風格設定】','【填入希望的圖卡風格】','【填入「選擇圖卡風格」的設定】'];
+  if(existing.test(txt)){
+    txt=txt.replace(existing,wrapped);
+  }else{
+    let replaced=false;
+    for(const marker of markers){
+      if(txt.includes(marker)){
+        txt=txt.replace(marker,wrapped);
+        replaced=true;
+        break;
+      }
+    }
+    if(!replaced){
+      const section=/((?:##|【)三[^\n]*(?:視覺|圖卡)風格[^\n]*\n)/;
+      if(section.test(txt)) txt=txt.replace(section,`$1\n${wrapped}\n`);
+      else txt+=`\n\n${wrapped}`;
+    }
+  }
+  p2.value=txt;
+  if(save)store(promptKey('prompt2'),txt);
+  markStylesPending(false);
+  announce('圖卡設定已套用至 Prompt 2。');
+  if(flash){applyStyleButton.textContent='✓ 已套用';setTimeout(()=>applyStyleButton.textContent='套用圖卡設定至 Prompt 2',1400)}
+}
+applyStyleButton.onclick=applyStyle;
+document.querySelector('#clearStyles').onclick=()=>applyPreset(presets[0]);
+
+document.querySelectorAll('[data-reset]').forEach(button=>button.onclick=()=>{
+  const id=button.dataset.reset;
+  if(!window.confirm(`確定要將 ${id==='prompt1'?'Prompt 1':'Prompt 2'} 恢復為目前平台的預設內容嗎？`))return;
+  const target=id==='prompt1'?p1:p2;
+  target.value=platformMap[currentPlatform].defaults[id==='prompt1'?0:1];
+  if(id==='prompt2'){applyAgency(false);applyStyle(false,false)}
+  store(promptKey(id),target.value);announce(`${id==='prompt1'?'Prompt 1':'Prompt 2'} 已恢復預設內容。`)
+});
+
+document.querySelectorAll('[data-copy]').forEach(button=>button.onclick=async()=>{
+  const el=document.querySelector('#'+button.dataset.copy),old=button.textContent;
+  let copied=false;
+  try{await navigator.clipboard.writeText(el.value);copied=true}catch(error){el.select();copied=document.execCommand('copy')}
+  button.textContent=copied?'✓ 已複製':'複製失敗';button.classList.toggle('copied',copied);
+  announce(copied?`${button.dataset.copy==='prompt1'?'Prompt 1':'Prompt 2'} 已複製。`:'複製失敗，請手動選取內容。');
+  setTimeout(()=>{button.textContent=old;button.classList.remove('copied')},1400)
+});
+
+let editing=null,lastEditorTrigger=null,editorOriginal='';
+const overlay=document.querySelector('#editorOverlay'),full=document.querySelector('#fullEditor'),title=document.querySelector('#editorTitle'),closeEditorButton=document.querySelector('#closeEditor'),saveEditorButton=document.querySelector('#saveEditor');
+function closeEditor(force=false){
+  if(!overlay.classList.contains('open'))return;
+  if(!force&&full.value!==editorOriginal&&!window.confirm('尚有未儲存的修改，確定要關閉嗎？'))return;
+  overlay.classList.remove('open');document.body.classList.remove('modal-open');
+  if(lastEditorTrigger)lastEditorTrigger.focus()
+}
+document.querySelectorAll('[data-edit]').forEach(button=>button.onclick=()=>{editing=document.querySelector('#'+button.dataset.edit);lastEditorTrigger=button;title.textContent=button.dataset.title;full.value=editing.value;editorOriginal=editing.value;overlay.classList.add('open');document.body.classList.add('modal-open');full.focus()});
+closeEditorButton.onclick=()=>closeEditor();
+saveEditorButton.onclick=()=>{if(editing){editing.value=full.value;store(promptKey(editing.id),editing.value);editorOriginal=full.value;announce('Prompt 修改已儲存。')}closeEditor(true)};
+overlay.onclick=event=>{if(event.target===overlay)closeEditor()};
+document.addEventListener('keydown',event=>{
+  if(!overlay.classList.contains('open'))return;
+  if(event.key==='Escape'){event.preventDefault();closeEditor();return}
+  if(event.key==='Tab'){
+    const focusable=[full,closeEditorButton,saveEditorButton],index=focusable.indexOf(document.activeElement);
+    event.preventDefault();focusable[(index+(event.shiftKey?-1:1)+focusable.length)%focusable.length].focus()
+  }
+});
+
+const platformLauncher=document.querySelector('#platformLauncher'),toggleLauncher=document.querySelector('#toggleLauncher');
+toggleLauncher.onclick=()=>{const collapsed=platformLauncher.classList.toggle('collapsed');toggleLauncher.setAttribute('aria-expanded',String(!collapsed));toggleLauncher.setAttribute('aria-label',collapsed?'展開平台按鈕':'收合平台按鈕');store(prefix+'launcher-collapsed',String(collapsed))};
+if(localStorage.getItem(prefix+'launcher-collapsed')==='true'){platformLauncher.classList.add('collapsed');toggleLauncher.setAttribute('aria-expanded','false');toggleLauncher.setAttribute('aria-label','展開平台按鈕')}
+openAIPlatform.onclick=()=>window.open(platformMap[currentPlatform].url,'_blank','noopener,noreferrer');
+renderPresets();renderGroups();updateSummary();
+</script>
+</body></html>
