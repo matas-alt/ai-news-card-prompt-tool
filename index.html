@@ -9,21 +9,33 @@
 :root{color-scheme:light;--ink:#18211b;--muted:#68736b;--line:#dce5dd;--paper:#fffdf8;--surface:rgba(255,255,255,.84);--green:#13795b;--green-dark:#0d5b44;--green-soft:#e6f4ed;--amber:#f0b45a;--orange:#a65c16;--shadow:0 18px 50px rgba(34,55,42,.09)}
 *{box-sizing:border-box}body{min-height:100vh;margin:0;color:var(--ink);background:radial-gradient(circle at 8% 0%,rgba(240,180,90,.18),transparent 28rem),radial-gradient(circle at 100% 18%,rgba(19,121,91,.12),transparent 32rem),#f4f6f1;font-family:Inter,"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}button,textarea,select{font:inherit}.shell{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:64px 0 72px}.hero{position:relative;overflow:hidden;padding:clamp(28px,5vw,56px);color:#f9fff9;background:#173d31;border-radius:28px;box-shadow:var(--shadow)}.hero:after{position:absolute;right:-70px;bottom:-120px;width:330px;height:330px;border:58px solid rgba(255,255,255,.07);border-radius:50%;content:""}.eyebrow{margin:0 0 16px;color:#a9dec8;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1{max-width:700px;margin:0;font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(2.15rem,6vw,4.5rem);font-weight:600;letter-spacing:-.045em;line-height:1.05}.hero-copy{max-width:660px;margin:20px 0 0;color:#d6e5dc;font-size:1.05rem;line-height:1.8}
 .platform-panel{margin:26px 0 0;padding:24px;background:rgba(255,255,255,.84);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(34,55,42,.06)}.platform-head{display:flex;gap:14px;align-items:baseline;justify-content:space-between;margin-bottom:14px}.platform-head h2{margin:0;font-size:1.12rem}.platform-head p{margin:0;color:var(--muted);font-size:.82rem}.platform-control{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:14px;align-items:center}.platform-control select{width:100%;min-height:46px;padding:10px 38px 10px 13px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:11px;outline:none}.platform-control select:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(19,121,91,.08)}.platform-preview{padding:11px 14px;color:#4f5c53;background:#f3f7f3;border:1px solid #dce5dd;border-radius:11px;font-size:.86rem}.platform-preview strong{color:var(--ink)}.agency-panel{margin:26px 0 0;padding:24px;background:rgba(255,255,255,.84);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(34,55,42,.06)}.agency-head{display:flex;gap:14px;align-items:baseline;justify-content:space-between;margin-bottom:14px}.agency-head h2{margin:0;font-size:1.12rem}.agency-head p{margin:0;color:var(--muted);font-size:.82rem}.agency-control{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:14px;align-items:center}.agency-control select{width:100%;min-height:46px;padding:10px 38px 10px 13px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:11px;outline:none}.agency-control select:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(19,121,91,.08)}.agency-preview{padding:11px 14px;color:#4f5c53;background:#f3f7f3;border:1px solid #dce5dd;border-radius:11px;font-size:.86rem}.agency-preview strong{color:var(--ink)}
-.logo-panel{margin:26px 0 0;padding:20px 24px;background:rgba(255,255,255,.84);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(34,55,42,.06)}
-.logo-panel-head{display:flex;gap:14px;align-items:baseline;justify-content:space-between;margin-bottom:12px}
-.logo-panel-head h2{margin:0;font-size:1.12rem}
-.logo-panel-head p{margin:0;color:var(--muted);font-size:.82rem}
-.logo-copy-box{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:#f8faf8;border:1px dashed #b8d4c2;border-radius:12px}
-.logo-copy-preview{display:flex;align-items:center;gap:12px}
-.logo-copy-preview img{width:40px;height:40px;object-fit:contain;filter:drop-shadow(0 2px 5px rgba(0,0,0,0.12))}
-.logo-copy-preview span{font-size:.84rem;font-weight:700;color:var(--ink)}
-.logo-copy-btn{padding:8px 16px;font-size:.82rem;background:var(--green);color:white;border:none;border-radius:9px;cursor:pointer;font-weight:700;transition:background 150ms ease}
-.logo-copy-btn:hover{background:var(--green-dark)}
-.logo-copy-btn.copied{background:#a65c16}
+
+/* 吉祥物選擇區樣式 */
+.mascot-lab{margin:26px 0;padding:24px;background:rgba(255,253,248,.86);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(34,55,42,.06)}
+.mascot-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.mascot-controls label span{display:block;margin-bottom:6px;font-size:.82rem;font-weight:700;color:var(--ink)}
+.mascot-controls select{width:100%;min-height:46px;padding:10px 38px 10px 13px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:11px;outline:none}
+.mascot-controls select:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(19,121,91,.08)}
+.mascot-preview-box{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;background:var(--surface);border:1px solid rgba(210,222,212,.9);border-radius:16px}
+.mascot-img-container{display:flex;align-items:center;justify-content:center;width:80px;height:80px;background-image:conic-gradient(#e2ece5 25%,transparent 25%,transparent 50%,#e2ece5 50%,#e2ece5 75%,transparent 75%,transparent);background-size:16px 16px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mascot-img-container img{max-width:100%;max-height:100%;object-fit:contain}
+.mascot-info{flex:1}
+.mascot-info strong{display:block;font-size:.92rem;color:var(--ink)}
+.mascot-info small{display:block;margin-top:3px;color:var(--muted);font-size:.76rem}
+
+.logo-footer-box{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px;padding:16px 20px;background:var(--surface);border:1px solid rgba(210,222,212,.9);border-radius:18px;box-shadow:var(--shadow)}
+.logo-footer-preview{display:flex;align-items:center;gap:14px}
+.logo-footer-preview img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.12))}
+.logo-footer-info strong{display:block;font-size:.92rem;color:var(--ink)}
+.logo-footer-info small{display:block;margin-top:2px;font-size:.76rem;color:var(--muted)}
+.action-btn{min-width:180px;min-height:44px;padding:10px 18px;font-size:.88rem;background:var(--green);color:white;border:none;border-radius:11px;cursor:pointer;font-weight:750;transition:all 150ms ease}
+.action-btn:hover{background:var(--green-dark);transform:translateY(-1px)}
+.action-btn.copied{background:var(--orange)}
+
 .style-lab{margin:26px 0;padding:24px;background:rgba(255,253,248,.86);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(34,55,42,.06)}.style-lab-head{display:flex;gap:14px;align-items:baseline;justify-content:space-between;margin-bottom:18px}.style-lab-head h2{margin:0;font-size:1.12rem}.style-lab-head p{margin:0;color:var(--muted);font-size:.82rem}.style-presets{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-bottom:14px}.preset-button{padding:11px 12px;color:#5d4934;background:#fff8ed;border:1px solid #ead7bd;border-radius:11px;font-size:.82rem;font-weight:800;cursor:pointer}.preset-button:hover,.preset-button.active{color:white;background:var(--orange);border-color:var(--orange)}.style-columns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.style-column{position:relative;min-width:0;background:white;border:1px solid var(--line);border-radius:14px;overflow:visible}.style-column[open]{z-index:20}.style-column summary{padding:14px;color:var(--ink);background:#f6f9f5;font-size:.88rem;font-weight:800;cursor:pointer;list-style-position:inside}.style-dropdown{position:absolute;top:calc(100% + 7px);left:0;width:max(100%,330px);overflow:hidden;background:white;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 48px rgba(34,55,42,.18)}.style-column:last-child .style-dropdown{right:0;left:auto}.style-options{max-height:310px;overflow-y:auto;padding:8px}.style-option{display:grid;grid-template-columns:20px minmax(0,1fr);gap:8px;padding:9px 7px;border-radius:9px;cursor:pointer}.style-option:hover{background:var(--green-soft)}.style-option input{margin-top:3px;accent-color:var(--green)}.style-option strong{display:block;font-size:.8rem;line-height:1.4}.style-option small{display:block;margin-top:2px;color:var(--muted);font-size:.7rem;line-height:1.4}.style-selection-note{margin:15px 0 0;color:var(--muted);font-size:.8rem;line-height:1.6}.style-actions{display:flex;gap:10px;margin-top:14px}.button{display:inline-flex;min-height:44px;flex:1;align-items:center;justify-content:center;padding:10px 14px;border:0;border-radius:11px;font-weight:750;text-decoration:none;cursor:pointer;transition:background 150ms ease,transform 150ms ease}.button:active{transform:translateY(1px)}.apply-style{color:#fff;background:var(--orange)}.apply-style:hover{background:#84470f}.clear-style{max-width:180px;color:#6b3f1b;background:#f5e8d8}.clear-style:hover{background:#ead6bd}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:18px}.card{display:flex;min-width:0;min-height:570px;flex-direction:column;padding:25px;background:var(--surface);border:1px solid rgba(210,222,212,.9);border-radius:22px;box-shadow:var(--shadow);backdrop-filter:blur(12px);transition:transform 180ms ease,box-shadow 180ms ease}.card:hover{box-shadow:0 22px 55px rgba(34,55,42,.13);transform:translateY(-3px)}.card-top{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;margin-bottom:14px}.tag{display:inline-block;margin-bottom:10px;padding:5px 10px;color:var(--green-dark);background:var(--green-soft);border-radius:999px;font-size:.76rem;font-weight:800;letter-spacing:.04em}.card h2{margin:0;font-size:1.28rem;line-height:1.35}.number{color:#bcc7bf;font-family:Georgia,serif;font-size:2rem;line-height:1}.description{min-height:48px;margin:0 0 16px;color:var(--muted);font-size:.92rem;line-height:1.65}textarea{width:100%;min-height:320px;flex:1;padding:16px;color:#253129;background:var(--paper);border:1px solid var(--line);border-radius:13px;outline:none;resize:vertical;line-height:1.7}textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(19,121,91,.08)}.hint{margin:9px 2px 15px;color:#879188;font-size:.77rem}.actions{display:flex;gap:10px}.copy{color:var(--green-dark);background:var(--green-soft)}.copy:hover{background:#d8eee4}.edit{color:white;background:var(--green)}.edit:hover{background:var(--green-dark)}.copy.copied{color:#5b3b08;background:#ffe9c8}.floating-chatgpt{position:fixed;z-index:900;right:22px;bottom:22px;width:auto;min-width:170px;padding:14px 20px;color:white;background:var(--green);border:1px solid rgba(255,255,255,.28);border-radius:999px;box-shadow:0 14px 36px rgba(13,91,68,.32)}.floating-chatgpt:hover{background:var(--green-dark);transform:translateY(-2px)}footer{padding-top:42px;color:var(--muted);font-size:.83rem;text-align:center}
 .editor-overlay{position:fixed;z-index:1000;inset:0;display:none;padding:clamp(14px,3vw,36px);background:rgba(13,28,21,.72);backdrop-filter:blur(10px)}.editor-overlay.open{display:flex}.editor-page{display:flex;width:min(1100px,100%);height:100%;margin:auto;padding:clamp(20px,4vw,38px);flex-direction:column;background:#f8faf6;border-radius:22px;box-shadow:0 28px 80px rgba(0,0,0,.28)}.editor-head{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:18px}.editor-head h2{margin:0;font-size:clamp(1.2rem,3vw,1.8rem)}.editor-controls{display:flex;gap:10px}.editor-close{color:var(--ink);background:#e8ece7}.editor-save{color:white;background:var(--green)}#fullEditor{min-height:0;flex:1;padding:clamp(18px,3vw,30px);font-size:1rem;line-height:1.8}
-@media(max-width:760px){.shell{width:min(100% - 20px,680px);padding-top:10px}.platform-head{display:block}.platform-head p{margin-top:6px}.platform-control{grid-template-columns:1fr}.agency-head{display:block}.agency-head p{margin-top:6px}.agency-control{grid-template-columns:1fr}.hero{border-radius:0 0 24px 24px}.grid{grid-template-columns:1fr}.style-lab-head{display:block}.style-lab-head p{margin-top:6px}.style-columns{grid-template-columns:1fr}.style-presets{grid-template-columns:1fr 1fr}.style-actions{flex-direction:column}.clear-style{max-width:none}.style-dropdown{position:static;width:100%;margin-top:0;border:0;border-top:1px solid var(--line);border-radius:0 0 14px 14px;box-shadow:none}.card{min-height:0;padding:20px}.floating-chatgpt{right:14px;bottom:14px;min-width:0}.editor-page{border-radius:15px}.editor-head{align-items:flex-start;flex-direction:column}.editor-controls{width:100%}.editor-controls .button{flex:1}}
+@media(max-width:760px){.shell{width:min(100% - 20px,680px);padding-top:10px}.platform-head{display:block}.platform-head p{margin-top:6px}.platform-control{grid-template-columns:1fr}.agency-head{display:block}.agency-head p{margin-top:6px}.agency-control{grid-template-columns:1fr}.hero{border-radius:0 0 24px 24px}.grid{grid-template-columns:1fr}.mascot-controls{grid-template-columns:1fr}.mascot-preview-box{flex-direction:column;align-items:stretch}.logo-footer-box{flex-direction:column;align-items:stretch}.action-btn{width:100%}.style-lab-head{display:block}.style-lab-head p{margin-top:6px}.style-columns{grid-template-columns:1fr}.style-presets{grid-template-columns:1fr 1fr}.style-actions{flex-direction:column}.clear-style{max-width:none}.style-dropdown{position:static;width:100%;margin-top:0;border:0;border-top:1px solid var(--line);border-radius:0 0 14px 14px;box-shadow:none}.card{min-height:0;padding:20px}.floating-chatgpt{right:14px;bottom:14px;min-width:0}.editor-page{border-radius:15px}.editor-head{align-items:flex-start;flex-direction:column}.editor-controls{width:100%}.editor-controls .button{flex:1}}
 
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 .style-selection-note.warning{color:#9a4f0c;font-weight:800}
@@ -48,25 +60,62 @@
 <body>
 <main class="shell">
 <header class="hero"><p class="eyebrow">AI NEWS CARD WORKFLOW</p><h1>AI 新聞稿圖卡</h1><p class="hero-copy">把一篇新聞稿，先整理成適合閱讀與分享的圖卡腳本，再套用一致的視覺風格，可依需求切換 ChatGPT 或 Google AI Mode 使用。</p></header>
-<section class="platform-panel" aria-labelledby="platformTitle"><div class="platform-head"><h2 id="platformTitle">選擇 AI 平台</h2><p>切換後會自動載入適合該平台的 Prompt 1 與 Prompt 2。</p></div><div class="platform-control"><label><span class="sr-only">AI 平台</span><select id="platformSelect"><option value="chatgpt">ChatGPT</option><option value="google" selected>Google AI Mode</option></select></label><div id="platformPreview" class="platform-preview">目前模式：<strong>Google AI Mode 精簡版 Prompt</strong></div></div></section><section class="agency-panel" aria-labelledby="agencyTitle"><div class="agency-head"><h2 id="agencyTitle">選擇製作單位</h2><p>設定圖卡底部的官方署名機關。</p></div><div class="agency-control"><label><span class="sr-only">製作單位</span><select id="agencySelect"><option value="高雄關">高雄關</option><option value="關務署">關務署</option><option value="臺中關">臺中關</option><option value="臺北關">臺北關</option><option value="基隆關">基隆關</option></select></label><div id="agencyPreview" class="agency-preview">圖卡底部署名：<strong>財政部關務署高雄關 製作</strong></div></div></section>
+<section class="platform-panel" aria-labelledby="platformTitle"><div class="platform-head"><h2 id="platformTitle">選擇 AI 平台</h2><p>切換後會自動載入適合該平台的 Prompt 1 與 Prompt 2。</p></div><div class="platform-control"><label><span class="sr-only">AI 平台</span><select id="platformSelect"><option value="chatgpt">ChatGPT</option><option value="google" selected>Google AI Mode</option></select></label><div id="platformPreview" class="platform-preview">目前模式：<strong>Google AI Mode 精簡版 Prompt</strong></div></div></section>
+<section class="agency-panel" aria-labelledby="agencyTitle"><div class="agency-head"><h2 id="agencyTitle">選擇製作單位</h2><p>選擇後會自動更新 Prompt 2 的底部署名。</p></div><div class="agency-control"><label><span class="sr-only">製作單位</span><select id="agencySelect"><option value="高雄關">高雄關</option><option value="關務署">關務署</option><option value="臺中關">臺中關</option><option value="臺北關">臺北關</option><option value="基隆關">基隆關</option></select></label><div id="agencyPreview" class="agency-preview">圖卡底部署名：<strong>財政部關務署高雄關 製作</strong></div></div></section>
+
+<!-- 海關吉祥物紙娃娃選擇專區 -->
+<section class="mascot-lab" aria-labelledby="mascotTitle">
+  <div class="style-lab-head">
+    <h2 id="mascotTitle">選擇海關吉祥物角色</h2>
+    <p>挑選制服款式並一鍵複製圖檔，可直接貼至 AI 對話框作為生圖角色參考。</p>
+  </div>
+  <div class="mascot-controls">
+    <label><span>角色性別</span>
+      <select id="mascotGenderSelect">
+        <option value="female">女性關員</option>
+        <option value="male">男性關員</option>
+      </select>
+    </label>
+    <label><span>制服款式</span>
+      <select id="mascotUniformSelect"></select>
+    </label>
+    <label><span>背景呈現</span>
+      <select id="mascotBackgroundSelect">
+        <option value="transparent">透明背景 (PNG)</option>
+        <option value="black">黑底背景 (增強 AI 解析)</option>
+      </select>
+    </label>
+  </div>
+  <div class="mascot-preview-box">
+    <div id="mascotImgContainer" class="mascot-img-container">
+      <img id="mascotPreviewImg" alt="海關吉祥物預覽" />
+    </div>
+    <div class="mascot-info">
+      <strong id="mascotName">女性短袖通關白色制服</strong>
+      <small>點擊右側按鈕複製後，直接至 AI 對話框按 Ctrl+V 貼上即可。</small>
+    </div>
+    <button type="button" id="copyMascotBtn" class="action-btn">📋 複製吉祥物圖檔</button>
+  </div>
+</section>
+
 <section class="style-lab" aria-labelledby="styleLabTitle"><div class="style-lab-head"><h2 id="styleLabTitle">設定圖卡呈現方式</h2><p>先選常見適用情況，系統會帶入建議版型與視覺風格；仍可自行調整。</p></div><h3 class="preset-title">常見適用情況</h3><div id="stylePresets" class="style-presets" role="group" aria-label="常見適用情況"></div><div id="styleColumns" class="style-columns"></div><p id="styleSelectionNote" class="style-selection-note" aria-live="polite">選擇一種適用情況，或交由 AI 自動判斷。</p><div class="style-actions"><button id="applyStyle" class="button apply-style" type="button">套用圖卡設定至 Prompt 2</button><button id="clearStyles" class="button clear-style" type="button">恢復自動判斷</button></div><div id="settingsSummary" class="settings-summary" aria-live="polite"></div></section>
 <section class="grid" aria-label="Prompt 清單">
 <article class="card"><div class="card-top"><div><span class="tag">01｜新聞稿內容</span><h2 id="prompt1Title">把新聞稿轉成單張圖卡腳本</h2></div><span class="number">01</span></div><p class="description">先找出新聞稿最值得被看見的一句話，再選擇最適合的單張資訊結構與視覺重點。</p><textarea id="prompt1" aria-labelledby="prompt1Title" spellcheck="true"></textarea><p class="hint">可直接修改；內容會自動保存在這台裝置。</p><div class="actions"><button type="button" class="button copy" data-copy="prompt1">複製 Prompt 1</button><button type="button" class="button edit" data-edit="prompt1" data-title="編輯 Prompt 1">全頁編輯</button><button type="button" class="button reset" data-reset="prompt1">恢復預設</button></div></article>
 <article class="card"><div class="card-top"><div><span class="tag">02｜圖卡生成</span><h2 id="prompt2Title">依腳本生成單張新聞稿圖卡</h2></div><span class="number">02</span></div><p class="description">沿用 Prompt 1 的單張圖卡腳本，套用選定風格與一致的設計系統，生成可直接分享的新聞稿圖卡。</p><textarea id="prompt2" aria-labelledby="prompt2Title" spellcheck="true"></textarea><p class="hint">選好上方風格後，按「套用圖卡風格至 Prompt 2」。</p><div class="actions"><button type="button" class="button copy" data-copy="prompt2">複製 Prompt 2</button><button type="button" class="button edit" data-edit="prompt2" data-title="編輯 Prompt 2">全頁編輯</button><button type="button" class="button reset" data-reset="prompt2">恢復預設</button></div></article>
 </section>
-<section class="logo-panel" aria-labelledby="logoTitle">
-<div class="logo-panel-head">
-<h2 id="logoTitle">關務署標準關徽 (透明去背 PNG)</h2>
-<p>複製完 Prompt 2 後，可一鍵複製超高畫質關徽，至 AI 對話框按 Ctrl+V 貼上。</p>
-</div>
-<div class="logo-copy-box">
-<div class="logo-copy-preview">
-<img id="logoPreviewImg" alt="關務署關徽" />
-<span>關務署標準關徽 (透明去背 PNG)</span>
-</div>
-<button type="button" id="copyLogoBtn" class="logo-copy-btn">📋 複製關徽圖檔</button>
-</div>
+
+<!-- 關徽複製專區 (置於最底層) -->
+<section class="logo-footer-box" aria-label="官方關徽圖檔">
+  <div class="logo-footer-preview">
+    <img id="logoPreviewImg" alt="關務署關徽" />
+    <div class="logo-footer-info">
+      <strong>關務署標準微立體關徽 (透明去背超高畫質 PNG)</strong>
+      <small>複製 Prompt 2 後點擊此處，至 AI 輸入框按 Ctrl+V 貼上圖檔即可執行生圖。</small>
+    </div>
+  </div>
+  <button type="button" id="copyLogoBtn" class="action-btn">📋 複製關徽圖檔</button>
 </section>
+
 <footer>提示：Prompt 內容與風格設定會保存在目前瀏覽器的這台裝置。</footer>
 </main>
 <aside id="platformLauncher" class="platform-launcher"><button id="toggleLauncher" class="launcher-toggle" type="button" aria-expanded="true" aria-controls="openAIPlatform" aria-label="收合平台按鈕">›</button><button id="openAIPlatform" class="button floating-chatgpt" type="button">開啟 ChatGPT ↗</button></aside>
@@ -174,43 +223,157 @@ const CUSTOMS_LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5
 const CUSTOMS_LOGO_SRC = 'data:image/svg+xml;utf8,' + encodeURIComponent(CUSTOMS_LOGO_SVG);
 document.getElementById('logoPreviewImg').src = CUSTOMS_LOGO_SRC;
 
-// 點擊一鍵複製超高畫質 (2000x2000) PNG 圖檔至剪貼簿
+// 點擊一鍵複製超高畫質 (2000x2000) PNG 圖檔至剪貼簿，並切換按鈕文字
 document.getElementById('copyLogoBtn').onclick = async () => {
-const btn = document.getElementById('copyLogoBtn');
-const oldTxt = btn.textContent;
-try {
-const size = 2000;
-const canvas = document.createElement('canvas');
-canvas.width = size;
-canvas.height = size;
-const ctx = canvas.getContext('2d');
-ctx.imageSmoothingEnabled = true;
-ctx.imageSmoothingQuality = 'high';
+  const btn = document.getElementById('copyLogoBtn');
+  const oldTxt = '📋 複製關徽圖檔';
+  try {
+    const size = 2000;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
 
-const img = new Image();
-img.crossOrigin = 'anonymous';
-img.onload = async () => {
-ctx.clearRect(0, 0, size, size);
-ctx.drawImage(img, 0, 0, size, size);
-canvas.toBlob(async (blob) => {
-try {
-await navigator.clipboard.write([
-new ClipboardItem({ 'image/png': blob })
-]);
-btn.textContent = '請貼至 AI 對話框';
-btn.classList.add('copied');
-announce('超高畫質關徽圖片已成功複製至剪貼簿，請至 AI 輸入框按 Ctrl+V 貼上。');
-setTimeout(() => { btn.textContent = oldTxt; btn.classList.remove('copied'); }, 1600);
-} catch (e) {
-alert('瀏覽器限制直接複製圖片，請對左側關徽點擊右鍵選擇「複製圖片」。');
-}
-}, 'image/png');
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = async () => {
+      ctx.clearRect(0, 0, size, size);
+      ctx.drawImage(img, 0, 0, size, size);
+      canvas.toBlob(async (blob) => {
+        try {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ]);
+          btn.textContent = '請貼至 AI 對話框';
+          btn.classList.add('copied');
+          announce('超高畫質關徽圖片已成功複製至剪貼簿，請至 AI 輸入框按 Ctrl+V 貼上。');
+          setTimeout(() => { btn.textContent = oldTxt; btn.classList.remove('copied'); }, 2000);
+        } catch (e) {
+          alert('瀏覽器限制直接複製圖片，請對左側關徽點擊右鍵選擇「複製圖片」。');
+        }
+      }, 'image/png');
+    };
+    img.src = CUSTOMS_LOGO_SRC;
+  } catch (err) {
+    alert('複製失敗，請手動右鍵另存圖片。');
+  }
 };
-img.src = CUSTOMS_LOGO_SRC;
-} catch (err) {
-alert('複製失敗，請手動右鍵另存圖片。');
-}
+
+// ====== 海關吉祥物紙娃娃圖庫管理 ======
+const MASCOT_CONFIG = {
+  basePath: './People%20icon/',
+  elements: {
+    gender: document.getElementById('mascotGenderSelect'),
+    uniform: document.getElementById('mascotUniformSelect'),
+    bg: document.getElementById('mascotBackgroundSelect'),
+    img: document.getElementById('mascotPreviewImg'),
+    imgContainer: document.getElementById('mascotImgContainer'),
+    name: document.getElementById('mascotName'),
+    btn: document.getElementById('copyMascotBtn')
+  }
 };
+
+const MASCOT_LIBRARY = {
+  female: {
+    white: { name: "女性短袖通關白色制服 (白短裙+高跟鞋)", file: "f_white.png" },
+    blue: { name: "女性短袖查驗便服 (藍衫+長褲)", file: "f_blue.png" },
+    dog: { name: "女性短袖深藍制服 (緝毒犬隊徽章)", file: "f_dog.png" },
+    orange: { name: "女性窄版短袖橘色制服 (長褲)", file: "f_orange.png" },
+    work: { name: "女性橘色連身工作服", file: "f_work.png" }
+  },
+  male: {
+    white: { name: "男性短袖通關白色制服 (白長褲+大盤帽)", file: "m_white.png" },
+    blue: { name: "男性短袖查驗便服 (藍衫+長褲)", file: "m_blue.png" },
+    dog: { name: "男性短袖深藍制服 (緝毒犬隊徽章)", file: "m_dog.png" },
+    orange: { name: "男性短袖橘色制服 (長褲)", file: "m_orange.png" },
+    work: { name: "男性橘色連身工作服", file: "m_work.png" }
+  }
+};
+
+function updateUniformOptions(){
+  const gender = MASCOT_CONFIG.elements.gender.value;
+  const uniformSelect = MASCOT_CONFIG.elements.uniform;
+  const options = MASCOT_LIBRARY[gender];
+  uniformSelect.innerHTML = '';
+  for(const key in options){
+    const opt = document.createElement('option');
+    opt.value = key;
+    opt.textContent = options[key].name.split(' (')[0];
+    uniformSelect.appendChild(opt);
+  }
+  updateMascotPreview();
+}
+
+function updateMascotPreview(){
+  const gender = MASCOT_CONFIG.elements.gender.value;
+  const uniformKey = MASCOT_CONFIG.elements.uniform.value;
+  const bgType = MASCOT_CONFIG.elements.bg.value;
+  const data = MASCOT_LIBRARY[gender]?.[uniformKey];
+  if(!data) return;
+
+  MASCOT_CONFIG.elements.img.src = MASCOT_CONFIG.basePath + data.file;
+  MASCOT_CONFIG.elements.name.textContent = data.name;
+
+  if(bgType === 'black'){
+    MASCOT_CONFIG.elements.imgContainer.style.background = '#000000';
+    MASCOT_CONFIG.elements.imgContainer.style.backgroundImage = 'none';
+  } else {
+    MASCOT_CONFIG.elements.imgContainer.style.background = '';
+    MASCOT_CONFIG.elements.imgContainer.style.backgroundImage = 'conic-gradient(#e2ece5 25%,transparent 25%,transparent 50%,#e2ece5 50%,#e2ece5 75%,transparent 75%,transparent)';
+  }
+}
+
+MASCOT_CONFIG.elements.gender.addEventListener('change', updateUniformOptions);
+MASCOT_CONFIG.elements.uniform.addEventListener('change', updateMascotPreview);
+MASCOT_CONFIG.elements.bg.addEventListener('change', updateMascotPreview);
+
+MASCOT_CONFIG.elements.btn.addEventListener('click', async () => {
+  const btn = MASCOT_CONFIG.elements.btn;
+  const oldTxt = '📋 複製吉祥物圖檔';
+  const imgUrl = MASCOT_CONFIG.elements.img.src;
+  const isBlack = MASCOT_CONFIG.elements.bg.value === 'black';
+
+  if(!imgUrl) return;
+
+  try {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+
+    img.onload = async () => {
+      canvas.width = img.naturalWidth || 600;
+      canvas.height = img.naturalHeight || 900;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if(isBlack){
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      canvas.toBlob(async (blob) => {
+        try {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ]);
+          btn.textContent = '請貼至 AI 對話框';
+          btn.classList.add('copied');
+          announce('吉祥物圖片已複製至剪貼簿，請至 AI 輸入框按 Ctrl+V 貼上。');
+          setTimeout(() => { btn.textContent = oldTxt; btn.classList.remove('copied'); }, 2000);
+        } catch (e) {
+          alert('瀏覽器限制直接複製圖片，請對吉祥物預覽圖點擊右鍵選擇「複製圖片」。');
+        }
+      }, 'image/png');
+    };
+    img.src = imgUrl;
+  } catch (err) {
+    alert('複製失敗，請確認圖檔已正確上傳至 GitHub。');
+  }
+});
 
 const LEGACY_DEFAULT1=`你是一位擅長政府機關新聞稿轉譯、資訊設計與社群圖卡策劃的內容編輯。
 
@@ -281,7 +444,6 @@ const LEGACY_DEFAULT1=`你是一位擅長政府機關新聞稿轉譯、資訊設
 • 不一定照抄新聞稿原標題
 • 避免過長
 • 避免官樣、公文式語氣
-• 標題與文案請使用正式、清楚的用語，盡量不要使用社群文宣諧音梗或網路流行語
 • 不要為了吸睛而誇大原文
 
 2. 副標或核心提醒
@@ -404,7 +566,7 @@ const LEGACY_DEFAULT1=`你是一位擅長政府機關新聞稿轉譯、資訊設
 • 優先把文字轉換成「對照、流程、分類、數字、條件、結果、情境」
 • 一張圖卡只建立一個主要認知
 • 圖卡的目的不是取代新聞稿，而是讓讀者在短時間內掌握新聞稿最重要的內容
-• 使用繁體中文及臺灣用語，標題與文案以端莊、專業、清楚為原則，避免社群文宣諧音梗
+• 使用繁體中文及臺灣用語
 • 新聞聯絡人、採訪窗口及其電話、分機、電子郵件應省略；但申請、申報、連假通關或民眾洽詢所需的官方服務電話、期限、網址與承辦單位應保留
 • 民國日期保持原格式，不自行換算；「可、應、不得、免、須」不得互相替換
 
@@ -467,7 +629,6 @@ const DEFAULT2=`請完全依照 Prompt 1 已經確認的適用情況、核心訊
 • 可信
 • 親民
 • 有政府機關正式感
-• 避免社群諧音梗，保持公部門端莊風格
 • 但避免傳統公文式僵硬版面
 
 【四、視覺語言】
@@ -518,7 +679,6 @@ const DEFAULT2=`請完全依照 Prompt 1 已經確認的適用情況、核心訊
 • 補充文字只保留必要內容
 • 不要直接貼入長段新聞稿
 • 不要使用過小文字硬塞內容
-• 嚴禁使用社群諧音梗與網路流行語，保持官方文宣的端莊與準確
 
 如果內容放不下，處理順序為：
 1. 刪除重複內容
@@ -636,7 +796,6 @@ https://web.customs.gov.tw/kaohsiung/headerImg?type=logo&path=4dd716da4ada4551b8
 • 是否沒有錯字、亂碼或假文字？
 • 主標是否清楚？
 • 是否沒有過多長段文字？
-• 是否避免了諧音梗與流行語，保持官方文宣端正語氣？
 • 是否已排除新聞聯絡與採訪資訊，同時保留必要的官方服務資訊？
 
 視覺：
@@ -661,7 +820,7 @@ const DEFAULT1=`請閱讀以下新聞稿，整理成一張 16:9 橫式知識圖�
 
 1. 適用情況：從法規通關、旅客防疫、申請服務、查緝成果、活動紀實中選擇一項
 2. 核心訊息：用一句話說明讀者最需要知道的事
-3. 主標題：14～24 個中文字，清楚直接，避免誇張、恐嚇語氣，且盡量不要使用社群文宣諧音梗或網路流行語
+3. 主標題：14～24 個中文字，清楚直接，避免誇張或恐嚇語氣
 4. 資訊重點：整理成 3～5 個簡短區塊，每區塊只表達一個重點
 5. 讀者行動：說明讀者看完後應知道、準備或辦理什麼
 6. 呈現建議：選擇重點卡片、比較對照、步驟流程、重要提醒、數據成果或照片專題，並提出一項主視覺建議
@@ -669,10 +828,9 @@ const DEFAULT1=`請閱讀以下新聞稿，整理成一張 16:9 橫式知識圖�
 規則：
 • 僅使用新聞稿中可確認的事實，不推測或補造內容
 • 日期、數字、金額、法規、罰則及專有名詞必須精確
-• 標題與文案使用繁體中文，保持端莊專業，不使用諧音梗
 • 排除新聞聯絡人、採訪窗口及其電話、分機與電子郵件
 • 民眾辦理業務所需的期限、網址及官方服務電話應保留
-• 避免公文式長句及大段文字
+• 使用繁體中文，避免公文式長句及大段文字
 
 【請在下方貼上新聞稿內容】
 
@@ -687,14 +845,13 @@ const GOOGLE_DEFAULT1=`你是一位專精於「政府公部門社群圖卡」的
 2. 具象圖示化：把抽象概念轉換成具體的 Icon 或物品名稱（如：放大鏡、飛機、模具、紙箱）。
 3. 資訊零出錯：稅則號別、稅率、法規、日期等數據必須 100% 精確對齊原文。
 4. 符號原則：如涉及兩者對比，使用「VS」標籤或「紅色 ✖ / 綠色 ✔」，嚴禁使用「≠」不等於符號。
-5. 文宣語氣：用詞保持端莊、專業與清楚，嚴禁使用社群文宣諧音梗或網路流行語。
 
 請直接依照以下「圖卡版面槽位」格式輸出：
 
 ---
 【圖卡版面槽位腳本】
 
-1. 頂部主標題（12～18 字，清楚直接，不使用諧音梗）：
+1. 頂部主標題（12～18 字，清楚直接）：
 （例如：高雄關籲請業者正確申報「沖壓模具」稅則號別）
 
 2. 中央核心資訊區塊（依內容特性整理 2～3 個核心資訊塊/步驟/對照）：
@@ -723,8 +880,8 @@ const GOOGLE_DEFAULT1=`你是一位專精於「政府公部門社群圖卡」的
 • 貼心提醒（15字內）：
 
 5. 角色與背景配置：
-• 主角色：Q 版海關關員（男性制服以白短襯衫+白長褲+白皮鞋，女性以白短襯衫+白短裙+白平底鞋為基準）
-• 向量背景：乾淨符合主題的物件與和諧配色
+• 主角色：Q 版海關關員（海關關員的制服先以白衣白褲為基準）
+• 向量背景：乾淨符合主題的物件
 ---
 
 【請在下方貼上新聞稿內容】`;
@@ -736,7 +893,7 @@ const GOOGLE_DEFAULT2=`請使用「Nano BANANA 2 生成圖片」功能，嚴格�
 【/已套用的圖卡風格】
 
 【角色與主題情境】
-• 角色要求：繪製一位親切微笑的 Q 版海關男性或女性關員（男性制服以白短襯衫+白長褲+白皮鞋，女性以白短襯衫+白短裙+白平底鞋為基準），背景為乾淨向量且契合主題的物件與氛圍。
+• 角色要求：繪製一位親切微笑的 Q 版海關男性或女性關員（制服先以白衣白褲為基準），背景為乾淨向量適合主題的物件。
 • 嚴格禁止：禁止生成逼真寫實人物照片、禁止灰暗混濁背景。
 
 【官方徽章與底部署名】
@@ -748,7 +905,6 @@ const GOOGLE_DEFAULT2=`請使用「Nano BANANA 2 生成圖片」功能，嚴格�
 
 【文字與數值精確度】
 • 圖片中所有文字必須使用「繁體中文（Traditional Chinese）」，字體方正清晰，嚴禁出現筆畫毀損或無意義亂碼。
-• 標題與內文請保持公部門專業端莊語氣，嚴禁使用社群文宣諧音梗或網路流行語。
 • 稅則號別、百分比數字必須完全依據腳本，數字絕對精準。
 
 現在直接生成這張 16:9 橫式圖卡。`;
@@ -781,9 +937,9 @@ const CHATGPT_PRESETS=[
 {id:'event',name:'活動紀實',desc:'座談、頒證、參訪、獲獎與合作',content:'機關活動與合作紀實',layout:'L06',tone:'V03'}
 ];
 
-// Google AI Mode 生圖專屬風格組（自適應配色 + 現代雜誌資訊圖）
+// Google AI Mode 生圖專屬風格組
 const GOOGLE_LAYOUT_SPECS={
-'GL01':'• 畫面構圖（左右對照版）：中央放置 2 個對稱圓角卡片，左卡為常見誤列（帶紅色 ✖ 標籤與錯誤示意圖），右卡為正確歸列（帶綠色 ✔ 標籤與正確示意圖），兩卡中間標註圓形「VS」標籤（切勿使用 ≠ 符號）。右側垂直排列 3 個小要點卡。',
+'GL01':'• 畫面構圖（左右對照版）：中央放置 2 個對稱白色圓角卡片，左卡為常見誤列（帶紅色 ✖ 標籤與錯誤示意圖），右卡為正確歸列（帶綠色 ✔ 標籤與正確示意圖），兩卡中間標註圓形「VS」標籤（切勿使用 ≠ 符號）。右側垂直排列 3 個小要點卡。',
 'GL02':'• 畫面構圖（重點卡片版）：畫面中央網格排列 3~4 個獨立圓角 UI 卡片，每張卡片頂部帶有彩色 Icon、加粗標題與短語，呈現整齊專業的清單結構。',
 'GL03':'• 畫面構圖（步驟流程版）：中央橫向貫穿 3 個步驟膠囊卡（Step 1 → Step 2 → Step 3），卡片之間以箭頭強烈連貫，底部搭配注意事項橫條，引導視覺流暢移動。',
 'GL04':'• 畫面構圖（數據成果版）：中央放置特大號加粗數字看板（Big Numeric Display），周圍以放射狀/環狀排列成果摘要卡片與成果圖標。',
@@ -791,25 +947,25 @@ const GOOGLE_LAYOUT_SPECS={
 };
 
 const GOOGLE_TONE_SPECS={
-'GV01':'• 美術渲染（現代公部門扁平風）：2D Flat Vector，極簡乾淨向量線條與現代圓角 UI 卡片。配色請根據主題自適應搭配清爽和諧的色彩氛圍，保持畫面明亮、留白充足與專業可信感。',
-'GV02':'• 美術渲染（親和 Q 版漫畫風）：生動的插畫線條、親民對話氣泡與溫暖柔和的自適應配色，營造輕鬆活潑、易於理解的民眾宣導氛圍。',
-'GV03':'• 美術渲染（現代雜誌資訊圖）：Modern Editorial Infographic 風格，典雅洗練的幾何結構與色塊分割，字體與圖表排版精緻俐落，具備高級政策白皮書與雜誌資訊圖表的質感。',
-'GV04':'• 美術渲染（醒目警示提醒風）：醒目高對比警示配色，搭配粗體大字、警示三角與標籤，層級分明且具備強烈提醒效果，但保持公部門的端正與專業感。'
+'GV01':'• 美術渲染（現代公部門扁平風）：2D Flat Vector，極簡乾淨向量線條，清爽淡粉藍與米白漸層背景，現代 UI 圓角卡片，色彩乾淨明亮。',
+'GV02':'• 美術渲染（親和 Q 版漫畫風）：溫暖柔和的暖黃與淺綠色調（Warm pastel yellow background），生動的漫畫對話氣泡（Speech bubbles），圓潤可愛的插畫線條。',
+'GV03':'• 美術渲染（科技微立體等角）：深邃科技藍漸層背景（Deep tech-navy gradient），等角微立體渲染（Isometric 3D clay/vector render），微發光邊框與玻璃質感卡片（Glassmorphism UI）。',
+'GV04':'• 美術渲染（醒目警示對比）：高對比亮黃與亮橘警示背景（High-contrast caution yellow & orange），粗黑醒目警示邊框與粗體大字，搭配警示三角 Icon，視覺衝擊強烈。'
 };
 
 const GOOGLE_GROUPS=[
 {key:'layout',title:'畫面結構 (Layout Grid)',options:[
-['GL01','左右對照版 (VS 卡片)','中央 2 個對比圓角卡片，中間標註 VS 圓形標籤，適合法規與稅則'],
+['GL01','左右對照版 (VS 卡片)','中央 2 個對比白底圓角卡片，中間標註 VS 圓形標籤，適合法規與稅則'],
 ['GL02','重點卡片版 (3~4 欄)','規則對齊的現代 UI 圓角資訊卡，搭配彩色圖示，適合規定清單'],
 ['GL03','步驟流程版 (Step 1-2-3)','橫向膠囊卡與箭頭相連，適合申辦程序與旅客通關指引'],
 ['GL04','數據成果版 (Big Numbers)','中央醒目超大數字看板與成果圖示，適合緝毒查緝與業務績效'],
 ['GL05','大圖焦點版 (Hero Focus)','單一主題大插圖搭配右側 3 段極簡小要點，適合宣導重點']
 ]},
 {key:'tone',title:'美術渲染風格 (Art Style)',options:[
-['GV01','現代公部門扁平風','2D Flat Vector，乾淨向量線條，自適應和諧配色，明亮現代 UI'],
-['GV02','親和 Q 版漫畫風','親民生動表情、對話氣泡感與柔和自適應配色，適合生活防疫'],
-['GV03','現代雜誌資訊圖','洗練幾何結構、典雅版面排版與精緻資訊圖表，適合成果與政策'],
-['GV04','醒目警示提醒風','高對比警示邊框與粗體大字，層級分明，清楚標示違規罰則']
+['GV01','現代公部門扁平風','2D Flat Vector，乾淨向量線條，清爽淡粉藍背景，明亮現代 UI'],
+['GV02','親和 Q 版漫畫風','暖黃柔和色調、漫畫對話氣泡感、生動表情，適合生活防疫'],
+['GV03','科技微立體等角','科技深藍背景、Isometric 等角微立體質感、玻璃擬態卡片'],
+['GV04','醒目警示對比','高對比亮黃橘警示配色、粗黑警示邊框，清楚標示違規罰則']
 ]}
 ];
 
@@ -817,12 +973,12 @@ const GOOGLE_PRESETS=[
 {id:'g_auto',name:'左右對照 (法規稅則)',desc:'最常用標準款',content:'業者通關與稅則宣導',layout:'GL01',tone:'GV01'},
 {id:'g_traveler',name:'流程指引 (旅客防疫)',desc:'步驟與漫畫親民感',content:'旅客通關與檢疫流程',layout:'GL03',tone:'GV02'},
 {id:'g_service',name:'重點卡片 (服務公告)',desc:'申請步驟與服務資訊',content:'服務公告與申請窗口',layout:'GL02',tone:'GV01'},
-{id:'g_enforcement',name:'數據成果 (查緝績效)',desc:'雜誌質感與大數字看板',content:'查緝成果與績效統計',layout:'GL04',tone:'GV03'},
+{id:'g_enforcement',name:'數據成果 (查緝績效)',desc:'科技質感與大數字看板',content:'查緝成果與績效統計',layout:'GL04',tone:'GV03'},
 {id:'g_hero',name:'警示大圖 (重要提醒)',desc:'高對比警示與強烈提醒',content:'重要法規與違規提醒',layout:'GL05',tone:'GV04'}
 ];
 
-const prefix='ai-news-card-tool:v11:';
-const legacyPrefix='ai-news-card-tool:v10:';
+const prefix='ai-news-card-tool:v9:';
+const legacyPrefix='ai-news-card-tool:v8:';
 const p1=document.querySelector('#prompt1'),p2=document.querySelector('#prompt2');
 const platformSelect=document.querySelector('#platformSelect'),platformPreview=document.querySelector('#platformPreview'),openAIPlatform=document.querySelector('#openAIPlatform');
 const liveStatus=document.querySelector('#liveStatus'),settingsSummary=document.querySelector('#settingsSummary');
@@ -843,9 +999,9 @@ const platformMap={
 chatgpt:{label:'ChatGPT 完整版 Prompt',openLabel:'開啟 ChatGPT ↗',url:'https://chatgpt.com/',defaults:[DEFAULT1,DEFAULT2]},
 google:{label:'Google AI Mode 精簡版 Prompt',openLabel:'開啟 Google AI Mode ↗',url:'https://www.google.com/ai',defaults:[GOOGLE_DEFAULT1,GOOGLE_DEFAULT2]}
 };
-const prompt1Revision='2026-08-28-banana-ui-14';
-const googlePrompt2Revision='2026-08-28-banana-ui-14';
-const chatgptPrompt2Revision='2026-08-28-chatgpt-reset-5';
+const prompt1Revision='2026-08-28-banana-ui-11';
+const googlePrompt2Revision='2026-08-28-banana-ui-11';
+const chatgptPrompt2Revision='2026-08-28-chatgpt-reset-4';
 
 function promptKey(id,platform=currentPlatform){return prefix+platform+':'+id}
 function savedPrompt(id,platform=currentPlatform){return localStorage.getItem(promptKey(id,platform))}
@@ -1055,9 +1211,9 @@ const p=activePreset(),s=selected();
 if(currentPlatform==='google'){
 const layoutSpec=GOOGLE_LAYOUT_SPECS[s.layout]||GOOGLE_LAYOUT_SPECS['GL01'];
 const toneSpec=GOOGLE_TONE_SPECS[s.tone]||GOOGLE_TONE_SPECS['GV01'];
-return `• 適用情境：${p.content}\n${layoutSpec}\n${toneSpec}\n• 視覺對比原則：如涉及兩者比較，請使用明確圓形「VS」標籤或「紅色 ✖ / 綠色 ✔」，嚴禁使用「≠」不等於符號。\n• 文宣風格限制：標題與所有文字說明以端正、專業為原則，盡量不要使用社群文宣諧音梗或流行語。`;
+return `• 適用情境：${p.content}\n${layoutSpec}\n${toneSpec}\n• 視覺對比原則：如涉及兩者比較，請使用明確圓形「VS」標籤或「紅色 ✖ / 綠色 ✔」，嚴禁使用「≠」不等於符號。`;
 }
-return `• 適用情況：${p.content}\n• 資訊版型：${labelFor(s.layout)}\n• 視覺語氣：${labelFor(s.tone)}\n• 共通原則：一張圖卡只傳達一個核心訊息，使用一致配色與圖像語言，保持充足留白與清楚層級，且避免社群文宣諧音梗。\n• 提醒強度：只有原文含明確禁止、違規、處罰或重大風險時才使用紅色警示；一般注意事項使用橘色、深綠或深藍，避免製造不必要的恐慌。`;
+return `• 適用情況：${p.content}\n• 資訊版型：${labelFor(s.layout)}\n• 視覺語氣：${labelFor(s.tone)}\n• 共通原則：一張圖卡只傳達一個核心訊息，使用一致配色與圖像語言，保持充足留白與清楚層級。\n• 提醒強度：只有原文含明確禁止、違規、處罰或重大風險時才使用紅色警示；一般注意事項使用橘色、深綠或深藍，避免製造不必要的恐慌。`;
 }
 
 function applyStyle(save=true,flash=true){
@@ -1139,6 +1295,9 @@ const platformLauncher=document.querySelector('#platformLauncher'),toggleLaunche
 toggleLauncher.onclick=()=>{const collapsed=platformLauncher.classList.toggle('collapsed');toggleLauncher.setAttribute('aria-expanded',String(!collapsed));toggleLauncher.setAttribute('aria-label',collapsed?'展開平台按鈕':'收合平台按鈕');store(prefix+'launcher-collapsed',String(collapsed))};
 if(localStorage.getItem(prefix+'launcher-collapsed')==='true'){platformLauncher.classList.add('collapsed');toggleLauncher.setAttribute('aria-expanded','false');toggleLauncher.setAttribute('aria-label','展開平台按鈕')}
 openAIPlatform.onclick=()=>window.open(platformMap[currentPlatform].url,'_blank','noopener,noreferrer');
+
+// 初始化吉祥物選單
+updateUniformOptions();
 
 renderPresets();
 renderGroups();
