@@ -10,7 +10,7 @@
 *{box-sizing:border-box}body{min-height:100vh;margin:0;color:var(--ink);background:radial-gradient(circle at 8% 0%,rgba(240,180,90,.18),transparent 28rem),radial-gradient(circle at 100% 18%,rgba(19,121,91,.12),transparent 32rem),#f4f6f1;font-family:Inter,"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}button,textarea,select{font:inherit}.shell{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:64px 0 72px}.hero{position:relative;overflow:hidden;padding:clamp(28px,5vw,56px);color:#f9fff9;background:#173d31;border-radius:28px;box-shadow:var(--shadow)}.hero:after{position:absolute;right:-70px;bottom:-120px;width:330px;height:330px;border:58px solid rgba(255,255,255,.07);border-radius:50%;content:""}.eyebrow{margin:0 0 16px;color:#a9dec8;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1{max-width:700px;margin:0;font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(2.15rem,6vw,4.5rem);font-weight:600;letter-spacing:-.045em;line-height:1.05}.hero-copy{max-width:660px;margin:20px 0 0;color:#d6e5dc;font-size:1.05rem;line-height:1.8}
 .platform-panel{margin:26px 0 0;padding:24px;background:rgba(255,255,255,.84);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(34,55,42,.06)}.platform-head{display:flex;gap:14px;align-items:baseline;justify-content:space-between;margin-bottom:14px}.platform-head h2{margin:0;font-size:1.12rem}.platform-head p{margin:0;color:var(--muted);font-size:.82rem}.platform-control{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:14px;align-items:center}.platform-control select{width:100%;min-height:46px;padding:10px 38px 10px 13px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:11px;outline:none}.platform-control select:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(19,121,91,.08)}.platform-preview{padding:11px 14px;color:#4f5c53;background:#f3f7f3;border:1px solid #dce5dd;border-radius:11px;font-size:.86rem}.platform-preview strong{color:var(--ink)}.agency-panel{margin:26px 0 0;padding:24px;background:rgba(255,255,255,.84);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(34,55,42,.06)}.agency-head{display:flex;gap:14px;align-items:baseline;justify-content:space-between;margin-bottom:14px}.agency-head h2{margin:0;font-size:1.12rem}.agency-head p{margin:0;color:var(--muted);font-size:.82rem}.agency-control{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:14px;align-items:center}.agency-control select{width:100%;min-height:46px;padding:10px 38px 10px 13px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:11px;outline:none}.agency-control select:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(19,121,91,.08)}.agency-preview{padding:11px 14px;color:#4f5c53;background:#f3f7f3;border:1px solid #dce5dd;border-radius:11px;font-size:.86rem}.agency-preview strong{color:var(--ink)}
 
-/* 吉祥物選擇區樣式 */
+/* 人物選擇區樣式 */
 .mascot-lab{margin:26px 0;padding:24px;background:rgba(255,253,248,.86);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(34,55,42,.06)}
 .mascot-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}
 .mascot-controls label span{display:block;margin-bottom:6px;font-size:.82rem;font-weight:700;color:var(--ink)}
@@ -62,10 +62,28 @@
 <header class="hero"><p class="eyebrow">AI NEWS CARD WORKFLOW</p><h1>AI 新聞稿圖卡</h1><p class="hero-copy">把一篇新聞稿，先整理成適合閱讀與分享的圖卡腳本，再套用一致的視覺風格，可依需求切換 ChatGPT 或 Google AI Mode 使用。</p></header>
 <section class="platform-panel" aria-labelledby="platformTitle"><div class="platform-head"><h2 id="platformTitle">選擇 AI 平台</h2><p>切換後會自動載入適合該平台的 Prompt 1 與 Prompt 2。</p></div><div class="platform-control"><label><span class="sr-only">AI 平台</span><select id="platformSelect"><option value="chatgpt">ChatGPT</option><option value="google" selected>Google AI Mode</option></select></label><div id="platformPreview" class="platform-preview">目前模式：<strong>Google AI Mode 精簡版 Prompt</strong></div></div></section><section class="agency-panel" aria-labelledby="agencyTitle"><div class="agency-head"><h2 id="agencyTitle">選擇製作單位</h2><p>選擇後會自動更新 Prompt 2 的底部署名。</p></div><div class="agency-control"><label><span class="sr-only">製作單位</span><select id="agencySelect"><option value="高雄關">高雄關</option><option value="關務署">關務署</option><option value="臺中關">臺中關</option><option value="臺北關">臺北關</option><option value="基隆關">基隆關</option></select></label><div id="agencyPreview" class="agency-preview">圖卡底部署名：<strong>財政部關務署高雄關 製作</strong></div></div></section>
 
-<!-- 海關吉祥物紙娃娃選擇專區 -->
+<section class="style-lab" aria-labelledby="styleLabTitle"><div class="style-lab-head"><h2 id="styleLabTitle">設定圖卡呈現方式</h2><p>先選常見適用情況，系統會帶入建議版型與視覺風格；仍可自行調整。</p></div><h3 class="preset-title">常見適用情況</h3><div id="stylePresets" class="style-presets" role="group" aria-label="常見適用情況"></div><div id="styleColumns" class="style-columns"></div><p id="styleSelectionNote" class="style-selection-note" aria-live="polite">選擇一種適用情況，或交由 AI 自動判斷。</p><div class="style-actions"><button id="applyStyle" class="button apply-style" type="button">套用圖卡設定至 Prompt 2</button><button id="clearStyles" class="button clear-style" type="button">恢復自動判斷</button></div><div id="settingsSummary" class="settings-summary" aria-live="polite"></div></section>
+<section class="grid" aria-label="Prompt 清單">
+<article class="card"><div class="card-top"><div><span class="tag">01｜新聞稿內容</span><h2 id="prompt1Title">把新聞稿轉成單張圖卡腳本</h2></div><span class="number">01</span></div><p class="description">先找出新聞稿最值得被看見的一句話，再選擇最適合的單張資訊結構與視覺重點。</p><textarea id="prompt1" aria-labelledby="prompt1Title" spellcheck="true"></textarea><p class="hint">可直接修改；內容會自動保存在這台裝置。</p><div class="actions"><button type="button" class="button copy" data-copy="prompt1">複製 Prompt 1</button><button type="button" class="button edit" data-edit="prompt1" data-title="編輯 Prompt 1">全頁編輯</button><button type="button" class="button reset" data-reset="prompt1">恢復預設</button></div></article>
+<article class="card"><div class="card-top"><div><span class="tag">02｜圖卡生成</span><h2 id="prompt2Title">依腳本生成單張新聞稿圖卡</h2></div><span class="number">02</span></div><p class="description">沿用 Prompt 1 的單張圖卡腳本，套用選定風格與一致的設計系統，生成可直接分享的新聞稿圖卡。</p><textarea id="prompt2" aria-labelledby="prompt2Title" spellcheck="true"></textarea><p class="hint">選好上方風格後，按「套用圖卡風格至 Prompt 2」。</p><div class="actions"><button type="button" class="button copy" data-copy="prompt2">複製 Prompt 2</button><button type="button" class="button edit" data-edit="prompt2" data-title="編輯 Prompt 2">全頁編輯</button><button type="button" class="button reset" data-reset="prompt2">恢復預設</button></div></article>
+</section>
+
+<!-- 關徽複製專區 (置於最底層) -->
+<section class="logo-footer-box" aria-label="官方關徽圖檔">
+  <div class="logo-footer-preview">
+    <img id="logoPreviewImg" alt="關務署關徽" />
+    <div class="logo-footer-info">
+      <strong>關務署標準微立體關徽 (透明去背超高畫質 PNG)</strong>
+      <small>點擊右側按鈕可一鍵複製高畫質關徽圖檔至剪貼簿。</small>
+    </div>
+  </div>
+  <button type="button" id="copyLogoBtn" class="action-btn">📋 複製關徽圖檔</button>
+</section>
+
+<!-- 海關人物選擇專區（置於關徽區塊下方） -->
 <section class="mascot-lab" aria-labelledby="mascotTitle">
   <div class="style-lab-head">
-    <h2 id="mascotTitle">選擇海關吉祥物角色</h2>
+    <h2 id="mascotTitle">選擇海關人物角色</h2>
     <p>挑選制服款式並一鍵複製圖檔，可直接貼至 AI 對話框作為生圖角色參考。</p>
   </div>
   <div class="mascot-controls">
@@ -87,33 +105,15 @@
   </div>
   <div class="mascot-preview-box">
     <div id="mascotImgContainer" class="mascot-img-container">
-      <img id="mascotPreviewImg" alt="海關吉祥物預覽" />
+      <img id="mascotPreviewImg" alt="海關人物預覽" />
     </div>
     <div class="mascot-info">
-      <strong id="mascotName">女性短袖通關白色制服</strong>
+      <strong id="mascotName">女性白色制服（白短裙＋高跟鞋）</strong>
       <small>點擊右側按鈕複製後，直接至 AI 對話框按 Ctrl+V 貼上即可。</small>
     </div>
-    <button type="button" id="copyMascotBtn" class="action-btn">📋 複製吉祥物圖檔</button>
+    <button type="button" id="copyMascotBtn" class="action-btn">📋 複製人物圖檔</button>
     <button type="button" id="copyMascotAndLogoBtn" class="action-btn">📋 同時複製人物＋關徽</button>
   </div>
-</section>
-
-<section class="style-lab" aria-labelledby="styleLabTitle"><div class="style-lab-head"><h2 id="styleLabTitle">設定圖卡呈現方式</h2><p>先選常見適用情況，系統會帶入建議版型與視覺風格；仍可自行調整。</p></div><h3 class="preset-title">常見適用情況</h3><div id="stylePresets" class="style-presets" role="group" aria-label="常見適用情況"></div><div id="styleColumns" class="style-columns"></div><p id="styleSelectionNote" class="style-selection-note" aria-live="polite">選擇一種適用情況，或交由 AI 自動判斷。</p><div class="style-actions"><button id="applyStyle" class="button apply-style" type="button">套用圖卡設定至 Prompt 2</button><button id="clearStyles" class="button clear-style" type="button">恢復自動判斷</button></div><div id="settingsSummary" class="settings-summary" aria-live="polite"></div></section>
-<section class="grid" aria-label="Prompt 清單">
-<article class="card"><div class="card-top"><div><span class="tag">01｜新聞稿內容</span><h2 id="prompt1Title">把新聞稿轉成單張圖卡腳本</h2></div><span class="number">01</span></div><p class="description">先找出新聞稿最值得被看見的一句話，再選擇最適合的單張資訊結構與視覺重點。</p><textarea id="prompt1" aria-labelledby="prompt1Title" spellcheck="true"></textarea><p class="hint">可直接修改；內容會自動保存在這台裝置。</p><div class="actions"><button type="button" class="button copy" data-copy="prompt1">複製 Prompt 1</button><button type="button" class="button edit" data-edit="prompt1" data-title="編輯 Prompt 1">全頁編輯</button><button type="button" class="button reset" data-reset="prompt1">恢復預設</button></div></article>
-<article class="card"><div class="card-top"><div><span class="tag">02｜圖卡生成</span><h2 id="prompt2Title">依腳本生成單張新聞稿圖卡</h2></div><span class="number">02</span></div><p class="description">沿用 Prompt 1 的單張圖卡腳本，套用選定風格與一致的設計系統，生成可直接分享的新聞稿圖卡。</p><textarea id="prompt2" aria-labelledby="prompt2Title" spellcheck="true"></textarea><p class="hint">選好上方風格後，按「套用圖卡風格至 Prompt 2」。</p><div class="actions"><button type="button" class="button copy" data-copy="prompt2">複製 Prompt 2</button><button type="button" class="button edit" data-edit="prompt2" data-title="編輯 Prompt 2">全頁編輯</button><button type="button" class="button reset" data-reset="prompt2">恢復預設</button></div></article>
-</section>
-
-<!-- 關徽複製專區 (置於最底層) -->
-<section class="logo-footer-box" aria-label="官方關徽圖檔">
-  <div class="logo-footer-preview">
-    <img id="logoPreviewImg" alt="關務署關徽" />
-    <div class="logo-footer-info">
-      <strong>關務署標準微立體關徽 (透明去背超高畫質 PNG)</strong>
-      <small>點擊右側按鈕可一鍵複製高畫質關徽圖檔至剪貼簿。</small>
-    </div>
-  </div>
-  <button type="button" id="copyLogoBtn" class="action-btn">📋 複製關徽圖檔</button>
 </section>
 
 <footer>提示：Prompt 內容與風格設定會保存在目前瀏覽器的這台裝置。</footer>
@@ -261,7 +261,7 @@ document.getElementById('copyLogoBtn').onclick = async () => {
   }
 };
 
-// ====== 海關吉祥物紙娃娃圖庫管理 ======
+// ====== 海關人物圖庫管理 ======
 const MASCOT_CONFIG = {
   basePath: './People%20icon/',
   elements: {
@@ -277,18 +277,18 @@ const MASCOT_CONFIG = {
 
 const MASCOT_LIBRARY = {
   female: {
-    white: { name: "女性短袖通關白色制服 (白短裙+高跟鞋)", file: "f_white.png" },
-    blue: { name: "女性短袖查驗便服 (藍衫+長褲)", file: "f_blue.png" },
-    dog: { name: "女性短袖深藍制服 (緝毒犬隊徽章)", file: "f_dog.png" },
-    orange: { name: "女性窄版短袖橘色制服 (長褲)", file: "f_orange.png" },
-    work: { name: "女性橘色連身工作服", file: "f_work.png" }
+    white: { name: "女性白色制服（白短裙＋高跟鞋）", prompt: "女性關員，穿著白色制服（白短裙＋高跟鞋）", file: "f_white.png" },
+    blue: { name: "女性驗貨服（藍衫＋長褲）", prompt: "女性關員，穿著驗貨服（藍衫＋長褲）", file: "f_blue.png" },
+    dog: { name: "女性犬隊制服（緝毒犬隊徽章）", prompt: "女性關員，穿著犬隊制服（配有緝毒犬隊徽章）", file: "f_dog.png" },
+    orange: { name: "女性窄版橘色制服（長褲）", prompt: "女性關員，穿著窄版橘色制服（長褲）", file: "f_orange.png" },
+    work: { name: "女性連身工作服", prompt: "女性關員，穿著連身工作服", file: "f_work.png" }
   },
   male: {
-    white: { name: "男性短袖通關白色制服 (白長褲+大盤帽)", file: "m_white.png" },
-    blue: { name: "男性短袖查驗便服 (藍衫+長褲)", file: "m_blue.png" },
-    dog: { name: "男性短袖深藍制服 (緝毒犬隊徽章)", file: "m_dog.png" },
-    orange: { name: "男性短袖橘色制服 (長褲)", file: "m_orange.png" },
-    work: { name: "男性橘色連身工作服", file: "m_work.png" }
+    white: { name: "男性白色制服（白長褲＋大盤帽）", prompt: "男性關員，穿著白色制服（白長褲＋大盤帽）", file: "m_white.png" },
+    blue: { name: "男性驗貨服（藍衫＋長褲）", prompt: "男性關員，穿著驗貨服（藍衫＋長褲）", file: "m_blue.png" },
+    dog: { name: "男性犬隊制服（緝毒犬隊徽章）", prompt: "男性關員，穿著犬隊制服（配有緝毒犬隊徽章）", file: "m_dog.png" },
+    orange: { name: "男性橘色制服（長褲）", prompt: "男性關員，穿著橘色制服（長褲）", file: "m_orange.png" },
+    work: { name: "男性連身工作服", prompt: "男性關員，穿著連身工作服", file: "m_work.png" }
   }
 };
 
@@ -315,6 +315,7 @@ function updateMascotPreview(){
 
   MASCOT_CONFIG.elements.img.src = MASCOT_CONFIG.basePath + data.file;
   MASCOT_CONFIG.elements.name.textContent = data.name;
+  applyMascotToPrompt();
 
   if(bgType === 'black'){
     MASCOT_CONFIG.elements.imgContainer.style.background = '#000000';
@@ -331,7 +332,7 @@ MASCOT_CONFIG.elements.bg.addEventListener('change', updateMascotPreview);
 
 MASCOT_CONFIG.elements.btn.addEventListener('click', async () => {
   const btn = MASCOT_CONFIG.elements.btn;
-  const oldTxt = '📋 複製吉祥物圖檔';
+  const oldTxt = '📋 複製人物圖檔';
   const imgUrl = MASCOT_CONFIG.elements.img.src;
   const isBlack = MASCOT_CONFIG.elements.bg.value === 'black';
 
@@ -362,10 +363,10 @@ MASCOT_CONFIG.elements.btn.addEventListener('click', async () => {
           ]);
           btn.textContent = '請貼至 AI 對話框';
           btn.classList.add('copied');
-          announce('吉祥物圖片已複製至剪貼簿，請至 AI 輸入框按 Ctrl+V 貼上。');
+          announce('人物圖片已複製至剪貼簿，請至 AI 輸入框按 Ctrl+V 貼上。');
           setTimeout(() => { btn.textContent = oldTxt; btn.classList.remove('copied'); }, 2000);
         } catch (e) {
-          alert('瀏覽器限制直接複製圖片，請對吉祥物預覽圖點擊右鍵選擇「複製圖片」。');
+          alert('瀏覽器限制直接複製圖片，請對人物預覽圖點擊右鍵選擇「複製圖片」。');
         }
       }, 'image/png');
     };
@@ -413,7 +414,7 @@ document.getElementById('copyMascotAndLogoBtn').addEventListener('click', async 
   const mascotSrc = MASCOT_CONFIG.elements.img.src;
 
   if (!mascotSrc) {
-    alert('請先選擇一張吉祥物圖片。');
+    alert('請先選擇一張人物圖片。');
     return;
   }
 
@@ -972,7 +973,7 @@ const GOOGLE_DEFAULT1=`你是一位專精於「政府公部門社群圖卡」的
 • 貼心提醒（15字內）：
 
 5. 角色與背景配置：
-• 主角色：Q 版海關關員（女性以白短襯衫+白短裙+白平底鞋，男性以白短襯衫+白長褲+白皮鞋為基準）
+• 主角色：Q 版海關女性關員，穿著白色制服（白短裙＋高跟鞋）
 • 向量背景：乾淨符合主題的物件
 ---
 
@@ -985,7 +986,7 @@ const GOOGLE_DEFAULT2=`請使用「Nano BANANA 2 生成圖片」功能，嚴格�
 【/已套用的圖卡風格】
 
 【角色與主題情境】
-• 角色要求：繪製一位親切微笑的 Q 版海關男性或女性關員（女性以白短襯衫+白短裙+白平底鞋，男性以白短襯衫+白長褲+白皮鞋為基準），背景為乾淨向量適合主題的物件。
+• 角色要求：繪製一位親切微笑的 Q 版海關女性關員，穿著白色制服（白短裙＋高跟鞋），背景為乾淨向量適合主題的物件。
 • 嚴格禁止：禁止生成逼真寫實人物照片、禁止灰暗混濁背景。
 
 【官方徽章與底部署名】
@@ -1100,6 +1101,24 @@ function savedPrompt(id,platform=currentPlatform){return localStorage.getItem(pr
 function saveCurrentPrompts(){
   if(p1.value && p1.value.trim() !== '') store(promptKey('prompt1'), p1.value);
   if(p2.value && p2.value.trim() !== '') store(promptKey('prompt2'), p2.value);
+}
+
+// 將目前選擇的性別與服裝同步至兩種平台的 Prompt 2。
+function applyMascotToPrompt(save=true){
+  if(!p2 || !MASCOT_CONFIG.elements.gender || !MASCOT_CONFIG.elements.uniform) return;
+  const gender=MASCOT_CONFIG.elements.gender.value;
+  const uniform=MASCOT_CONFIG.elements.uniform.value;
+  const data=MASCOT_LIBRARY[gender]?.[uniform];
+  if(!data) return;
+
+  let txt=p2.value;
+  const googleRole=`• 角色要求：繪製一位親切微笑的 Q 版海關${data.prompt}，背景為乾淨向量適合主題的物件。`;
+  const chatgptRole=`• 主角色：Q 版海關${data.prompt}`;
+
+  txt=txt.replace(/^• 角色要求：.*$/m,googleRole);
+  txt=txt.replace(/^• 主角色：.*$/m,chatgptRole);
+  p2.value=txt;
+  if(save) store(promptKey('prompt2'),txt);
 }
 
 function loadPlatformPrompts(platform){
@@ -1343,6 +1362,7 @@ currentPreset=currentPlatform==='google'?'g_auto':'auto';
 renderPresets();
 renderGroups();
 applyStyle(false, false);
+applyMascotToPrompt(false);
 updateSummary();
 });
 
@@ -1354,7 +1374,7 @@ const id=button.dataset.reset;
 if(!window.confirm(`確定要將 ${id==='prompt1'?'Prompt 1':'Prompt 2'} 恢復為目前平台的預設內容嗎？`)) return;
 const target=id==='prompt1'?p1:p2;
 target.value=platformMap[currentPlatform].defaults[id==='prompt1'?0:1];
-if(id==='prompt2'){applyAgency(false);applyStyle(false,false)}
+if(id==='prompt2'){applyAgency(false);applyStyle(false,false);applyMascotToPrompt(false)}
 store(promptKey(id),target.value);
 announce(`${id==='prompt1'?'Prompt 1':'Prompt 2'} 已恢復預設內容。`);
 });
@@ -1412,7 +1432,7 @@ if(savedLauncherState === 'false'){
 
 openAIPlatform.onclick=()=>window.open(platformMap[currentPlatform].url,'_blank','noopener,noreferrer');
 
-// 初始化吉祥物選單與風格欄位
+// 初始化人物選單與風格欄位
 updateUniformOptions();
 renderPresets();
 renderGroups();
