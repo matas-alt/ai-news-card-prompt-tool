@@ -42,6 +42,7 @@
 .apply-style.pending{color:#4e2b08;background:#ffd79f;box-shadow:0 0 0 3px rgba(240,180,90,.2)}
 .settings-summary{margin-top:14px;padding:11px 14px;color:#4f5c53;background:#f3f7f3;border:1px solid var(--line);border-radius:11px;font-size:.82rem;line-height:1.55}
 .actions{flex-wrap:wrap}.actions .button{min-width:120px}.reset{color:#6b3f1b;background:#f5e8d8}.reset:hover{background:#ead6bd}
+.has-tooltip{position:relative}.has-tooltip::before,.has-tooltip::after{position:absolute;z-index:50;pointer-events:none;opacity:0;visibility:hidden;transition:opacity 150ms ease,transform 150ms ease,visibility 150ms ease}.has-tooltip::before{left:50%;bottom:calc(100% + 10px);width:min(340px,calc(100vw - 36px));padding:11px 13px;color:#fff;background:#173d31;border:1px solid rgba(255,255,255,.18);border-radius:10px;box-shadow:0 10px 28px rgba(13,40,30,.22);content:attr(data-tooltip);font-size:.76rem;font-weight:600;line-height:1.55;text-align:left;white-space:normal;transform:translate(-50%,6px)}.has-tooltip::after{left:50%;bottom:calc(100% + 3px);width:0;height:0;border:7px solid transparent;border-top-color:#173d31;content:"";transform:translate(-50%,6px)}.has-tooltip:hover::before,.has-tooltip:hover::after,.has-tooltip:focus-visible::before,.has-tooltip:focus-visible::after{opacity:1;visibility:visible;transform:translate(-50%,0)}
 .platform-launcher{position:fixed;z-index:900;right:22px;bottom:22px;display:flex;align-items:stretch;filter:drop-shadow(0 14px 18px rgba(13,91,68,.22));transition:transform 220ms ease}
 .platform-launcher.collapsed{transform:translateX(calc(100% - 42px))}
 .launcher-toggle{width:42px;padding:0;color:white;background:var(--green-dark);border:1px solid rgba(255,255,255,.28);border-right:0;border-radius:999px 0 0 999px;font-size:1.45rem;cursor:pointer}
@@ -65,7 +66,7 @@
 <section class="style-lab" aria-labelledby="styleLabTitle"><div class="style-lab-head"><h2 id="styleLabTitle">設定圖卡呈現方式</h2><p>先選常見適用情況，系統會帶入建議版型與視覺風格；仍可自行調整。</p></div><h3 class="preset-title">常見適用情況</h3><div id="stylePresets" class="style-presets" role="group" aria-label="常見適用情況"></div><div id="styleColumns" class="style-columns"></div><p id="styleSelectionNote" class="style-selection-note" aria-live="polite">選擇一種適用情況，或交由 AI 自動判斷。</p><div class="style-actions"><button id="applyStyle" class="button apply-style" type="button">套用圖卡設定至 Prompt 2</button><button id="clearStyles" class="button clear-style" type="button">恢復自動判斷</button></div><div id="settingsSummary" class="settings-summary" aria-live="polite"></div></section>
 <section class="grid" aria-label="Prompt 清單">
 <article class="card"><div class="card-top"><div><span class="tag">01｜新聞稿內容</span><h2 id="prompt1Title">把新聞稿轉成單張圖卡腳本</h2></div><span class="number">01</span></div><p class="description">先找出新聞稿最值得被看見的一句話，再選擇最適合的單張資訊結構與視覺重點。</p><textarea id="prompt1" aria-labelledby="prompt1Title" spellcheck="true"></textarea><p class="hint">可直接修改；內容會自動保存在這台裝置。</p><div class="actions"><button type="button" class="button copy" data-copy="prompt1">複製 Prompt 1</button><button type="button" class="button edit" data-edit="prompt1" data-title="編輯 Prompt 1">全頁編輯</button><button type="button" class="button reset" data-reset="prompt1">恢復預設</button></div></article>
-<article class="card"><div class="card-top"><div><span class="tag">02｜圖卡生成</span><h2 id="prompt2Title">依腳本生成單張新聞稿圖卡</h2></div><span class="number">02</span></div><p class="description">沿用 Prompt 1 的單張圖卡腳本，套用選定風格與一致的設計系統，生成可直接分享的新聞稿圖卡。</p><textarea id="prompt2" aria-labelledby="prompt2Title" spellcheck="true"></textarea><p class="hint">選好上方風格後，按「套用圖卡風格至 Prompt 2」。</p><div class="actions"><button type="button" class="button copy" data-copy="prompt2">複製 Prompt 2</button><button type="button" class="button edit" data-edit="prompt2" data-title="編輯 Prompt 2">全頁編輯</button><button type="button" class="button reset" data-reset="prompt2">恢復預設</button></div></article>
+<article class="card"><div class="card-top"><div><span class="tag">02｜圖卡生成</span><h2 id="prompt2Title">依腳本生成單張新聞稿圖卡</h2></div><span class="number">02</span></div><p class="description">沿用 Prompt 1 的單張圖卡腳本，套用選定風格與一致的設計系統，生成可直接分享的新聞稿圖卡。</p><textarea id="prompt2" aria-labelledby="prompt2Title" spellcheck="true"></textarea><p class="hint">選好上方風格後，按「套用圖卡風格至 Prompt 2」。</p><div class="actions"><button type="button" class="button copy has-tooltip" data-copy="prompt2" data-tooltip="請先確認是否已複製人物或關徽，並貼入 AI 對話框，否則模組可能不會被採用。">複製 Prompt 2</button><button type="button" class="button edit" data-edit="prompt2" data-title="編輯 Prompt 2">全頁編輯</button><button type="button" class="button reset" data-reset="prompt2">恢復預設</button></div></article>
 </section>
 
 <!-- 關徽複製專區 (置於最底層) -->
@@ -1404,9 +1405,6 @@ let copied=false;
 try{await navigator.clipboard.writeText(el.value);copied=true}catch(error){el.select();copied=document.execCommand('copy')}
 button.textContent=copied?'✓ 已複製':'複製失敗';button.classList.toggle('copied',copied);
 announce(copied?`${button.dataset.copy==='prompt1'?'Prompt 1':'Prompt 2'} 已複製。`:'複製失敗，請手動選取內容。');
-if(copied&&button.dataset.copy==='prompt2'){
-window.setTimeout(()=>window.alert('Prompt 2 已複製。\n\n尚未貼上人物或關徽。請記得複製圖片並貼入 AI 對話框，否則模組可能不會被採用。\n\n若本次不使用人物或關徽模組，可直接忽略此提示。'),0);
-}
 setTimeout(()=>{button.textContent=old;button.classList.remove('copied')},1400);
 });
 
