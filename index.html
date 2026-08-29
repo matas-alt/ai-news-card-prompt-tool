@@ -117,6 +117,33 @@
   </div>
 </section>
 
+<!-- 緝毒犬選擇專區（置於頁面最底端） -->
+<section class="mascot-lab" aria-labelledby="dogTitle">
+  <div class="style-lab-head">
+    <h2 id="dogTitle">選擇緝毒犬</h2>
+    <p>需要緝毒犬時，選擇犬隻後一次複製人物、關徽與緝毒犬；不需要時請使用上方的人物＋關徽按鈕。</p>
+  </div>
+  <div class="mascot-controls">
+    <label><span>犬隻顏色</span>
+      <select id="dogColorSelect">
+        <option value="black">黑色犬</option>
+        <option value="brown">淺棕色犬</option>
+        <option value="white">米白色犬</option>
+      </select>
+    </label>
+  </div>
+  <div class="mascot-preview-box">
+    <div class="mascot-img-container">
+      <img id="dogPreviewImg" alt="緝毒犬預覽" />
+    </div>
+    <div class="mascot-info">
+      <strong id="dogName">黑色緝毒犬</strong>
+      <small>三個模組會合成為一張 PNG：左側人物、中間緝毒犬、右側關徽。</small>
+    </div>
+    <button type="button" id="copyMascotLogoDogBtn" class="action-btn">📋 同時複製人物＋關徽＋緝毒犬</button>
+  </div>
+</section>
+
 <footer>提示：Prompt 內容與風格設定會保存在目前瀏覽器的這台裝置。</footer>
 </main>
 <aside id="platformLauncher" class="platform-launcher collapsed"><button id="toggleLauncher" class="launcher-toggle" type="button" aria-expanded="false" aria-controls="openAIPlatform" aria-label="展開平台按鈕">›</button><button id="openAIPlatform" class="button floating-chatgpt" type="button">開啟 ChatGPT ↗</button></aside>
@@ -460,6 +487,116 @@ document.getElementById('copyMascotAndLogoBtn').addEventListener('click', async 
     console.error(error);
     alert('無法複製合成圖片。請使用 HTTPS 的 GitHub Pages，並允許瀏覽器存取剪貼簿。');
     btn.textContent = '合成複製失敗';
+  } finally {
+    window.setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = oldText;
+      btn.classList.remove('copied');
+    }, 2200);
+  }
+});
+
+// ====== 緝毒犬圖庫與「人物＋關徽＋緝毒犬」合成複製 ======
+const DOG_CONFIG = {
+  basePath: './Dog_icon/',
+  select: document.getElementById('dogColorSelect'),
+  img: document.getElementById('dogPreviewImg'),
+  name: document.getElementById('dogName'),
+  btn: document.getElementById('copyMascotLogoDogBtn')
+};
+
+const DOG_LIBRARY = {
+  black: { name: '黑色緝毒犬', file: 'dog_black.png', prompt: '黑色緝毒犬，穿著黃色 CUSTOMS 緝毒犬背心' },
+  brown: { name: '淺棕色緝毒犬', file: 'dog_brown.png', prompt: '淺棕色緝毒犬，穿著黃色 CUSTOMS 緝毒犬背心' },
+  white: { name: '米白色緝毒犬', file: 'dog_white.png', prompt: '米白色緝毒犬，穿著紅色 CUSTOMS 緝毒犬背心' }
+};
+
+function updateDogPreview() {
+  const dog = DOG_LIBRARY[DOG_CONFIG.select.value] || DOG_LIBRARY.black;
+  DOG_CONFIG.img.src = DOG_CONFIG.basePath + dog.file;
+  DOG_CONFIG.name.textContent = dog.name;
+}
+
+function setDogReferenceInPrompt(enabled) {
+  const prompt2 = document.getElementById('prompt2');
+  if (!prompt2) return;
+  const pattern = /\n*【已套用緝毒犬參考圖規則】[\s\S]*?【\/已套用緝毒犬參考圖規則】/g;
+  let nextValue = prompt2.value.replace(pattern, '').trimEnd();
+
+  if (enabled) {
+    const dog = DOG_LIBRARY[DOG_CONFIG.select.value] || DOG_LIBRARY.black;
+    nextValue += `\n\n【已套用緝毒犬參考圖規則】
+• 將附圖中間的緝毒犬視為必須採用的犬隻原型，不得改畫成其他毛色、品種或背心款式。
+• 目前指定緝毒犬：${dog.prompt}。
+• 必須完整保留背心上的緝毒犬徽章與 CUSTOMS 字樣，緝毒犬是獨立角色，不是人物服裝或關徽的一部分。
+【/已套用緝毒犬參考圖規則】`;
+  }
+
+  prompt2.value = nextValue;
+  prompt2.dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+DOG_CONFIG.select.addEventListener('change', updateDogPreview);
+updateDogPreview();
+
+// 使用雙模組按鈕時，移除 Prompt 2 中的緝毒犬規則。
+document.getElementById('copyMascotAndLogoBtn').addEventListener('click', () => {
+  setDogReferenceInPrompt(false);
+}, true);
+
+DOG_CONFIG.btn.addEventListener('click', async () => {
+  const btn = DOG_CONFIG.btn;
+  const oldText = '📋 同時複製人物＋關徽＋緝毒犬';
+  const mascotSrc = MASCOT_CONFIG.elements.img.src;
+  const dogSrc = DOG_CONFIG.img.src;
+
+  if (!mascotSrc) {
+    alert('請先選擇一張人物圖片。');
+    return;
+  }
+  if (!dogSrc) {
+    alert('請先選擇一張緝毒犬圖片。');
+    return;
+  }
+
+  try {
+    btn.disabled = true;
+    btn.textContent = '合成中…';
+    const [mascotImg, dogImg, logoImg] = await Promise.all([
+      loadImageForCanvas(mascotSrc),
+      loadImageForCanvas(dogSrc),
+      loadImageForCanvas(CUSTOMS_LOGO_SRC)
+    ]);
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 2400;
+    canvas.height = 1200;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('瀏覽器無法建立 Canvas');
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    if (MASCOT_CONFIG.elements.bg.value === 'black') {
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // 左：人物；中：緝毒犬；右下：關徽，避免三個模組互相遮蓋。
+    drawImageContained(ctx, mascotImg, 40, 40, 980, 1120);
+    drawImageContained(ctx, dogImg, 1040, 180, 900, 880);
+    drawImageContained(ctx, logoImg, 1960, 720, 400, 400);
+
+    const blob = await canvasToPngBlob(canvas);
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+    setDogReferenceInPrompt(true);
+    btn.textContent = '✓ 人物、關徽與緝毒犬已複製';
+    btn.classList.add('copied');
+    announce('人物、關徽與緝毒犬已合成為一張 PNG。請先貼入 AI 對話框，確認收到圖片後再複製 Prompt 2。');
+  } catch (error) {
+    console.error(error);
+    alert('三模組圖片複製失敗。請確認使用 HTTPS 或 GitHub Pages，並允許瀏覽器存取剪貼簿。');
+    btn.textContent = '合成或複製失敗';
   } finally {
     window.setTimeout(() => {
       btn.disabled = false;
@@ -820,9 +957,7 @@ const DEFAULT2=`請完全依照 Prompt 1 已經確認的適用情況、核心訊
 • 成果：大數字、貨物 Icon、港口、貨櫃、查緝情境
 • 民眾宣導：民眾、購物情境、手機、行李、包裹、警示 Icon
 
-如果圖卡內容涉及動植物檢疫，且需要出現「檢疫犬」，請使用「米格魯」形象。
 如果圖卡內容涉及毒品查緝，且需要出現「緝毒犬」，請使用「拉布拉多」形象。
-不要把檢疫犬畫成拉布拉多，也不要把緝毒犬畫成米格魯。
 
 【十一、官方製作單位】
 
