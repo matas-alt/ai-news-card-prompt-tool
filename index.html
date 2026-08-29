@@ -84,7 +84,7 @@
 <section class="mascot-lab" aria-labelledby="mascotTitle">
   <div class="style-lab-head">
     <h2 id="mascotTitle">選擇海關人物角色</h2>
-    <p>挑選制服款式並一鍵複製圖檔，可直接貼至 AI 對話框作為生圖角色參考。</p>
+    <p>挑選制服款式後，請先將人物＋關徽貼至 AI 對話框，再貼上 Prompt 2。</p>
   </div>
   <div class="mascot-controls">
     <label><span>角色性別</span>
@@ -109,7 +109,7 @@
     </div>
     <div class="mascot-info">
       <strong id="mascotName">女性白色制服（白短裙＋高跟鞋）</strong>
-      <small>點擊右側按鈕複製後，直接至 AI 對話框按 Ctrl+V 貼上即可。</small>
+      <small>請先貼上「人物＋關徽」合成圖，確認 AI 已收到圖片後，再貼上 Prompt 2。</small>
     </div>
     <button type="button" id="copyMascotBtn" class="action-btn">📋 複製人物圖檔</button>
     <button type="button" id="copyMascotAndLogoBtn" class="action-btn">📋 同時複製人物＋關徽</button>
@@ -454,7 +454,7 @@ document.getElementById('copyMascotAndLogoBtn').addEventListener('click', async 
 
     btn.textContent = '✓ 人物與關徽已複製';
     btn.classList.add('copied');
-    announce('人物與關徽已合成為一張 PNG，請至 AI 輸入框按 Ctrl+V 貼上。');
+    announce('人物與關徽已合成為一張 PNG。請先至 AI 輸入框按 Ctrl+V 貼上圖片，確認收到後再貼上 Prompt 2。');
   } catch (error) {
     console.error(error);
     alert('無法複製合成圖片。請使用 HTTPS 的 GitHub Pages，並允許瀏覽器存取剪貼簿。');
@@ -986,8 +986,13 @@ const GOOGLE_DEFAULT2=`請使用「Nano BANANA 2 生成圖片」功能，嚴格�
 【/已套用的圖卡風格】
 
 【角色與主題情境】
-• 角色要求：繪製一位親切微笑的 Q 版海關女性關員，穿著白色制服（白短裙＋高跟鞋），背景為乾淨向量適合主題的物件。
+• 角色要求：使用本次對話所附參考圖中的 Q 版海關女性關員，穿著白色制服（白短裙＋高跟鞋），保留其外觀、臉部特徵、髮型、制服、配色與 Q 版比例，背景為乾淨向量適合主題的物件。
 • 嚴格禁止：禁止生成逼真寫實人物照片、禁止灰暗混濁背景。
+【已套用的人物參考圖規則】
+• 將附圖左側的人物視為必須採用的角色原型，不得改畫為其他性別、其他服裝或其他角色。
+• 將附圖右側的關徽視為獨立的官方 Logo 素材，不是人物服裝或背景的一部分。
+• 附圖的透明或黑色背景僅用於素材識別，不代表最終圖卡背景。
+【/已套用的人物參考圖規則】
 
 【官方徽章與底部署名】
 • 請務必維持所附關務署徽章圖示的極致清晰度與標準圓形比例，放置於底部「財政部關務署○○關 製作」文字正左方，保持輪廓銳利，嚴禁模糊或變形。
@@ -1112,11 +1117,25 @@ function applyMascotToPrompt(save=true){
   if(!data) return;
 
   let txt=p2.value;
-  const googleRole=`• 角色要求：繪製一位親切微笑的 Q 版海關${data.prompt}，背景為乾淨向量適合主題的物件。`;
-  const chatgptRole=`• 主角色：Q 版海關${data.prompt}`;
+  const googleRole=`• 角色要求：使用本次對話所附參考圖中的 Q 版海關${data.prompt}，保留其外觀、臉部特徵、髮型、制服、配色與 Q 版比例，背景為乾淨向量適合主題的物件。`;
+  const chatgptRole=`• 主角色：必須使用本次對話所附參考圖中的 Q 版海關${data.prompt}，保留其外觀、髮型、制服、配色與 Q 版比例`;
+  const referenceBlock=`【已套用的人物參考圖規則】
+• 將附圖左側的人物視為必須採用的角色原型，不得改畫為其他性別、其他服裝或其他角色。
+• 目前指定人物：${data.prompt}。
+• 將附圖右側的關徽視為獨立的官方 Logo 素材，不是人物服裝或背景的一部分。
+• 附圖的透明或黑色背景僅用於素材識別，不代表最終圖卡背景。
+【/已套用的人物參考圖規則】`;
 
   txt=txt.replace(/^• 角色要求：.*$/m,googleRole);
   txt=txt.replace(/^• 主角色：.*$/m,chatgptRole);
+  const referencePattern=/【已套用的人物參考圖規則】[\s\S]*?【\/已套用的人物參考圖規則】/;
+  if(referencePattern.test(txt)){
+    txt=txt.replace(referencePattern,referenceBlock);
+  }else if(txt.includes('【官方徽章與底部署名】')){
+    txt=txt.replace('【官方徽章與底部署名】',`${referenceBlock}\n\n【官方徽章與底部署名】`);
+  }else if(txt.includes('【十二、官方徽章】')){
+    txt=txt.replace('【十二、官方徽章】',`${referenceBlock}\n\n【十二、官方徽章】`);
+  }
   p2.value=txt;
   if(save) store(promptKey('prompt2'),txt);
 }
@@ -1385,6 +1404,9 @@ let copied=false;
 try{await navigator.clipboard.writeText(el.value);copied=true}catch(error){el.select();copied=document.execCommand('copy')}
 button.textContent=copied?'✓ 已複製':'複製失敗';button.classList.toggle('copied',copied);
 announce(copied?`${button.dataset.copy==='prompt1'?'Prompt 1':'Prompt 2'} 已複製。`:'複製失敗，請手動選取內容。');
+if(copied&&button.dataset.copy==='prompt2'){
+window.setTimeout(()=>window.alert('Prompt 2 已複製。\n\n尚未貼上人物或關徽。請記得複製圖片並貼入 AI 對話框，否則模組可能不會被採用。\n\n若本次不使用人物或關徽模組，可直接忽略此提示。'),0);
+}
 setTimeout(()=>{button.textContent=old;button.classList.remove('copied')},1400);
 });
 
