@@ -56,17 +56,40 @@
 .preset-title{margin:0 0 10px;font-size:.9rem}.style-presets{grid-template-columns:repeat(6,minmax(0,1fr));margin-bottom:22px}.preset-button{min-height:82px;padding:12px;text-align:left}.preset-button strong,.preset-button small{display:block}.preset-button strong{font-size:.84rem}.preset-button small{margin-top:5px;font-size:.68rem;font-weight:500;line-height:1.4}.preset-button:hover,.preset-button.active{color:#fff;background:var(--green);border-color:var(--green)}.style-group+.style-group{margin-top:20px}.style-group-layout .style-options{grid-template-columns:repeat(4,minmax(0,1fr))}.style-group-tone .style-options{grid-template-columns:repeat(4,minmax(0,1fr))}.style-group .style-option{min-height:104px}.style-group .style-option:has(input:checked){background:var(--green-soft);border-color:var(--green)}
 @media(max-width:1000px){.style-presets{grid-template-columns:repeat(3,minmax(0,1fr))}.style-group-layout .style-options,.style-group-tone .style-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.style-presets{grid-template-columns:repeat(2,minmax(0,1fr))}.preset-button{min-height:88px}.style-group-layout .style-options,.style-group-tone .style-options{grid-template-columns:1fr}.style-group .style-option{min-height:82px}}
+.quick-nav{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0;padding:12px;background:rgba(255,255,255,.84);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px rgba(34,55,42,.06)}
+.quick-nav span{display:flex;align-items:center;padding:0 4px;color:var(--muted);font-size:.78rem;font-weight:800}
+.quick-nav a{display:inline-flex;min-height:44px;align-items:center;justify-content:center;padding:9px 14px;color:var(--green-dark);background:var(--green-soft);border-radius:10px;font-size:.82rem;font-weight:800;text-decoration:none}
+.quick-nav a:hover,.quick-nav a:focus-visible{color:#fff;background:var(--green)}
+.mobile-copy-reminder{display:none}
+#mascotTitle,#dogTitle{scroll-margin-top:16px}
+
+@media(max-width:760px){
+  .quick-nav{position:relative;gap:8px;margin-top:14px;padding:10px}
+  .quick-nav span{width:100%}
+  .quick-nav a{flex:1;padding-inline:8px}
+  .mobile-copy-reminder{display:block;margin:10px 0 12px;padding:10px 12px;color:#68420d;background:#fff1d7;border:1px solid #edcf9c;border-radius:10px;font-size:.76rem;font-weight:700;line-height:1.55}
+  .has-tooltip::before{left:0;right:auto;width:min(300px,calc(100vw - 62px));transform:translate(0,6px)}
+  .has-tooltip::after{left:40px;transform:translate(0,6px)}
+  .has-tooltip:hover::before,.has-tooltip:focus-visible::before{transform:translate(0,0)}
+  .has-tooltip:hover::after,.has-tooltip:focus-visible::after{transform:translate(0,0)}
+  .mascot-img-container{width:120px;height:120px;align-self:center}
+  .mascot-preview-box .mascot-info{text-align:center}
+  #copyMascotLogoDogBtn{min-height:44px;height:44px;padding-inline:8px;font-size:.8rem;white-space:nowrap}
+  .launcher-toggle{width:44px;min-width:44px}
+  .platform-launcher.collapsed{transform:translateX(calc(100% - 44px))}
+}
 </style>
 </head>
 <body>
 <main class="shell">
 <header class="hero"><p class="eyebrow">AI NEWS CARD WORKFLOW</p><h1>AI 新聞稿圖卡</h1><p class="hero-copy">把一篇新聞稿，先整理成適合閱讀與分享的圖卡腳本，再套用一致的視覺風格，可依需求切換 ChatGPT 或 Google AI Mode 使用。</p></header>
+<nav class="quick-nav" aria-label="手機版快速導覽"><span>快速前往</span><a href="#prompt2Title">Prompt 2</a><a href="#mascotTitle">人物模組</a><a href="#dogTitle">緝毒犬模組</a></nav>
 <section class="platform-panel" aria-labelledby="platformTitle"><div class="platform-head"><h2 id="platformTitle">選擇 AI 平台</h2><p>切換後會自動載入適合該平台的 Prompt 1 與 Prompt 2。</p></div><div class="platform-control"><label><span class="sr-only">AI 平台</span><select id="platformSelect"><option value="chatgpt">ChatGPT</option><option value="google" selected>Google AI Mode</option></select></label><div id="platformPreview" class="platform-preview">目前模式：<strong>Google AI Mode 精簡版 Prompt</strong></div></div></section><section class="agency-panel" aria-labelledby="agencyTitle"><div class="agency-head"><h2 id="agencyTitle">選擇製作單位</h2><p>選擇後會自動更新 Prompt 2 的底部署名。</p></div><div class="agency-control"><label><span class="sr-only">製作單位</span><select id="agencySelect"><option value="高雄關">高雄關</option><option value="關務署">關務署</option><option value="臺中關">臺中關</option><option value="臺北關">臺北關</option><option value="基隆關">基隆關</option></select></label><div id="agencyPreview" class="agency-preview">圖卡底部署名：<strong>財政部關務署高雄關 製作</strong></div></div></section>
 
 <section class="style-lab" aria-labelledby="styleLabTitle"><div class="style-lab-head"><h2 id="styleLabTitle">設定圖卡呈現方式</h2><p>先選常見適用情況，系統會帶入建議版型與視覺風格；仍可自行調整。</p></div><h3 class="preset-title">常見適用情況</h3><div id="stylePresets" class="style-presets" role="group" aria-label="常見適用情況"></div><div id="styleColumns" class="style-columns"></div><p id="styleSelectionNote" class="style-selection-note" aria-live="polite">選擇一種適用情況，或交由 AI 自動判斷。</p><div class="style-actions"><button id="applyStyle" class="button apply-style" type="button">套用圖卡設定至 Prompt 2</button><button id="clearStyles" class="button clear-style" type="button">恢復自動判斷</button></div><div id="settingsSummary" class="settings-summary" aria-live="polite"></div></section>
 <section class="grid" aria-label="Prompt 清單">
 <article class="card"><div class="card-top"><div><span class="tag">01｜新聞稿內容</span><h2 id="prompt1Title">把新聞稿轉成單張圖卡腳本</h2></div><span class="number">01</span></div><p class="description">先找出新聞稿最值得被看見的一句話，再選擇最適合的單張資訊結構與視覺重點。</p><textarea id="prompt1" aria-labelledby="prompt1Title" spellcheck="true"></textarea><p class="hint">可直接修改；內容會自動保存在這台裝置。</p><div class="actions"><button type="button" class="button copy" data-copy="prompt1">複製 Prompt 1</button><button type="button" class="button edit" data-edit="prompt1" data-title="編輯 Prompt 1">全頁編輯</button><button type="button" class="button reset" data-reset="prompt1">恢復預設</button></div></article>
-<article class="card"><div class="card-top"><div><span class="tag">02｜圖卡生成</span><h2 id="prompt2Title">依腳本生成單張新聞稿圖卡</h2></div><span class="number">02</span></div><p class="description">沿用 Prompt 1 的單張圖卡腳本，套用選定風格與一致的設計系統，生成可直接分享的新聞稿圖卡。</p><textarea id="prompt2" aria-labelledby="prompt2Title" spellcheck="true"></textarea><p class="hint">選好上方風格後，按「套用圖卡風格至 Prompt 2」。</p><div class="actions"><button type="button" class="button copy has-tooltip" data-copy="prompt2" data-tooltip="請先確認是否已複製人物或關徽，並貼入 AI 對話框，否則模組可能不會被採用。">複製 Prompt 2</button><button type="button" class="button edit" data-edit="prompt2" data-title="編輯 Prompt 2">全頁編輯</button><button type="button" class="button reset" data-reset="prompt2">恢復預設</button></div></article>
+<article class="card"><div class="card-top"><div><span class="tag">02｜圖卡生成</span><h2 id="prompt2Title">依腳本生成單張新聞稿圖卡</h2></div><span class="number">02</span></div><p class="description">沿用 Prompt 1 的單張圖卡腳本，套用選定風格與一致的設計系統，生成可直接分享的新聞稿圖卡。</p><textarea id="prompt2" aria-labelledby="prompt2Title" spellcheck="true"></textarea><p class="hint">選好上方風格後，按「套用圖卡風格至 Prompt 2」。</p><p class="mobile-copy-reminder">提醒：請先複製需要的人物、關徽或緝毒犬模組並貼入 AI 對話框，確認圖片已收到後，再複製 Prompt 2。</p><div class="actions"><button type="button" class="button copy has-tooltip" data-copy="prompt2" data-tooltip="請先確認是否已複製人物或關徽，並貼入 AI 對話框，否則模組可能不會被採用。">複製 Prompt 2</button><button type="button" class="button edit" data-edit="prompt2" data-title="編輯 Prompt 2">全頁編輯</button><button type="button" class="button reset" data-reset="prompt2">恢復預設</button></div></article>
 </section>
 
 <!-- 關徽複製專區 (置於最底層) -->
@@ -975,6 +998,10 @@ const DEFAULT2=`請完全依照 Prompt 1 已經確認的適用情況、核心訊
 
 選擇「關務署」時，署名僅標註「財政部關務署 製作」，不加任何關區名稱。
 
+【十一之一、人物姿勢與情境互動】
+
+• 主角色：若本次對話附有人物參考圖，必須保留參考人物的外觀、臉部特徵、髮型、制服、配色與 Q 版比例；參考圖只用於鎖定人物造型，不鎖定姿勢。人物的姿勢、手勢、視線、朝向與手持物必須依新聞稿內文、場景及人物任務重新生成，並自然參與說明、查驗、服務、簡報、引導或其他內文要求的動作。除非內文明確要求，禁止沿用雙手攤開、正面直立或沒有情境意義的預設展示姿勢。
+
 【十二、官方徽章】
 
 官方署名區左側應搭配「關務署徽章圖示」。
@@ -1122,10 +1149,13 @@ const GOOGLE_DEFAULT2=`請使用「Nano BANANA 2 生成圖片」功能，嚴格�
 【/已套用的圖卡風格】
 
 【角色與主題情境】
-• 角色要求：使用本次對話所附參考圖中的 Q 版海關女性關員，穿著白色制服（白短裙＋高跟鞋），保留其外觀、臉部特徵、髮型、制服、配色與 Q 版比例，背景為乾淨向量適合主題的物件。
+• 角色要求：使用本次對話所附參考圖中的 Q 版海關女性關員，穿著白色制服（白短裙＋高跟鞋），保留其外觀、臉部特徵、髮型、制服、配色與 Q 版比例；參考圖只用於人物造型，不得照抄其雙手攤開的預設站姿。人物的姿勢、手勢、視線、朝向與手持物必須依本篇新聞稿的實際情境重新設計，並自然參與說明、查驗、服務、簡報、引導或其他內文要求的動作。背景為乾淨向量適合主題的物件。
 • 嚴格禁止：禁止生成逼真寫實人物照片、禁止灰暗混濁背景。
 【已套用的人物參考圖規則】
 • 將附圖左側的人物視為必須採用的角色原型，不得改畫為其他性別、其他服裝或其他角色。
+• 人物參考圖只鎖定外觀、臉部特徵、髮型、制服、配色與 Q 版比例，不鎖定參考圖中的姿勢。
+• 必須依內文主題與角色任務重新生成自然且明確的姿勢、手勢、視線、朝向及手持物，讓人物實際與場景、設備、文件或其他角色互動。
+• 除非內文明確要求，禁止沿用雙手攤開、正面直立或沒有情境意義的預設展示姿勢。
 • 將附圖右側的關徽視為獨立的官方 Logo 素材，不是人物服裝或背景的一部分。
 • 附圖的透明或黑色背景僅用於素材識別，不代表最終圖卡背景。
 【/已套用的人物參考圖規則】
@@ -1235,7 +1265,7 @@ google:{label:'Google AI Mode 精簡版 Prompt',openLabel:'開啟 Google AI Mode
 
 const prompt1Revision='2026-08-28-banana-ui-15';
 const googlePrompt2Revision='2026-08-28-banana-ui-15';
-const chatgptPrompt2Revision='2026-08-28-chatgpt-reset-8';
+const chatgptPrompt2Revision='2026-08-31-chatgpt-posture-v5';
 
 function promptKey(id,platform=currentPlatform){return prefix+platform+':'+id}
 function savedPrompt(id,platform=currentPlatform){return localStorage.getItem(promptKey(id,platform))}
@@ -1253,11 +1283,14 @@ function applyMascotToPrompt(save=true){
   if(!data) return;
 
   let txt=p2.value;
-  const googleRole=`• 角色要求：使用本次對話所附參考圖中的 Q 版海關${data.prompt}，保留其外觀、臉部特徵、髮型、制服、配色與 Q 版比例，背景為乾淨向量適合主題的物件。`;
-  const chatgptRole=`• 主角色：必須使用本次對話所附參考圖中的 Q 版海關${data.prompt}，保留其外觀、髮型、制服、配色與 Q 版比例`;
+  const googleRole=`• 角色要求：使用本次對話所附參考圖中的 Q 版海關${data.prompt}，保留其外觀、臉部特徵、髮型、制服、配色與 Q 版比例；參考圖只用於人物造型，不得照抄其雙手攤開的預設站姿。人物的姿勢、手勢、視線、朝向與手持物必須依本篇新聞稿的實際情境重新設計，並自然參與說明、查驗、服務、簡報、引導或其他內文要求的動作。背景為乾淨向量適合主題的物件。`;
+  const chatgptRole=`• 主角色：必須使用本次對話所附參考圖中的 Q 版海關${data.prompt}，保留其外觀、髮型、制服、配色與 Q 版比例；參考圖只鎖定人物造型，不鎖定姿勢。人物的姿勢、手勢、視線、朝向與手持物必須依內文情境重新生成，禁止無理由沿用雙手攤開或正面直立的預設展示姿勢`;
   const referenceBlock=`【已套用的人物參考圖規則】
 • 將附圖左側的人物視為必須採用的角色原型，不得改畫為其他性別、其他服裝或其他角色。
 • 目前指定人物：${data.prompt}。
+• 人物參考圖只鎖定外觀、臉部特徵、髮型、制服、配色與 Q 版比例，不鎖定參考圖中的姿勢。
+• 必須依內文主題與角色任務重新生成自然且明確的姿勢、手勢、視線、朝向及手持物，讓人物實際與場景、設備、文件或其他角色互動。
+• 除非內文明確要求，禁止沿用雙手攤開、正面直立或沒有情境意義的預設展示姿勢。
 • 將附圖右側的關徽視為獨立的官方 Logo 素材，不是人物服裝或背景的一部分。
 • 附圖的透明或黑色背景僅用於素材識別，不代表最終圖卡背景。
 【/已套用的人物參考圖規則】`;
